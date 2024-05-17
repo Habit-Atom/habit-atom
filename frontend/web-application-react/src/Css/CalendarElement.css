@@ -1,0 +1,16 @@
+.calendar-element{
+    width: 70px;
+    height: 120px;
+    border-radius: 50px;
+    margin: 0 20px;
+    border: 3px solid #0BC682;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.calendar-element p{
+    margin: 7px 0;
+    font-weight: 600;
+    font-size: 18px;
+}

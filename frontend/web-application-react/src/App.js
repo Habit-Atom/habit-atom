@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+
+import { Route, Routes } from "react-router-dom";
+import './App.css';
+import { Calendar } from './Pages/Calendar';
+import { Create } from './Pages/Create';
+import { Dashboard } from './Pages/Dashboard';
+import { Progress } from './Pages/Progress';
+import { Sidebar } from './Components/Sidebar';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Sidebar/>
+      <Routes>
+        <Route path="/" element={<Dashboard />}> </Route>
+        <Route path="/progress" element={<Progress />}> </Route>
+        <Route path="/calendar" element={<Calendar />}> </Route>
+        <Route path="/create" element={<Create />}> </Route>
+      </Routes>
+      
     </div>
   );
 }
