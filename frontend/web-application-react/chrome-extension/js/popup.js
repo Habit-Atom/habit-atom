@@ -35,7 +35,7 @@ let allStyles = []; // Initialize an array to hold all styles
 function display(data, container, type) {
   container.innerHTML = '';
 
-  const styles = data.map(d => createStyles(d)).join('');
+  const styles = data.map(d => createStyles(d, type)).join('');
   allStyles.push(styles); // Collect styles for each request
 
   const html = data.map(d => createHtml(d, type)).join('');
@@ -46,44 +46,61 @@ function display(data, container, type) {
 }
 
 // Function to create dynamic CSS for each habit/task
-function createStyles(data) {
-  const name = data.name.toLowerCase().replace(/\s+/g, '_');
-  return `
+function createStyles(data, type) {
+  if (type === "habit") {
+    const name = data.habit.name.toLowerCase().replace(/\s+/g, '_');
+    return `
     .round input[type="checkbox"]:checked + label[for="checkbox-${name}"] {
-      background-color: ${data.color};
-      border-color: ${data.color};
+      background-color: ${data.habit.color};
+      border-color: ${data.habit.color};
     }
     .round label[for="checkbox-${name}"] {
-      border: 3px solid ${data.color};
+      border: 3px solid ${data.habit.color};
     }
   `;
+  }else if (type === "task"){
+    const name = data.task.name.toLowerCase().replace(/\s+/g, '_');
+    return `
+    .round input[type="checkbox"]:checked + label[for="checkbox-${name}"] {
+      background-color: ${data.task.color};
+      border-color: ${data.task.color};
+    }
+    .round label[for="checkbox-${name}"] {
+      border: 3px solid ${data.task.color};
+    }
+  `;
+  }
+
+  
+  
 }
 
 // Function to create habit/task HTML using template literals
 function createHtml(data, type) {
-  const name = data.name.toLowerCase().replace(/\s+/g, '_');
   if (type === "habit") {
+    const name = data.habit.name.toLowerCase().replace(/\s+/g, '_');
     return `
-      <div class="habit" style="border: 3px solid ${data.color}">
+      <div class="habit" style="border: 3px solid ${data.habit.color}">
         <div class="habit-details-container">
-          <img src="${data.icon}" />
-          <div class="habit-name" style="color: ${data.color}">${data.name}</div>
+          <img src="${data.habit.icon}" />
+          <div class="habit-name" style="color: ${data.habit.color}">${data.habit.name}</div>
         </div>
         <div class="round">
-          <input type="checkbox" id="checkbox-${name}" />
+          <input type="checkbox" id="checkbox-${name}" ${data.completed ? 'checked' : ''}/>
           <label for="checkbox-${name}"></label>
         </div>
       </div>
     `;
   } else if (type === "task") {
+    const name = data.task.name.toLowerCase().replace(/\s+/g, '_');
     return `
-      <div class="task" style="border: 3px solid ${data.color}">
+      <div class="task" style="border: 3px solid ${data.task.color}">
         <div class="task-details-container">
-          <img src="${data.icon}" />
-          <div class="task-name" style="color: ${data.color}">${data.name}</div>
+          <img src="${data.task.icon}" />
+          <div class="task-name" style="color: ${data.task.color}">${data.task.name}</div>
         </div>
         <div class="round">
-          <input type="checkbox" id="checkbox-${name}" />
+          <input type="checkbox" id="checkbox-${name}" ${data.completed ? 'checked' : ''} />
           <label for="checkbox-${name}"></label>
         </div>
       </div>

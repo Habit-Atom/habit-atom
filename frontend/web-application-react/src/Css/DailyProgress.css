@@ -61,9 +61,7 @@
       conic-gradient(#11C785 75%, #E8E8E8 0);    
   }
   
-  .progress-bar::before {
-    content: "75%";
-  }
+  
 
   @property --progress-value {
     syntax: "<integer>";
@@ -72,7 +70,7 @@
   }
   
   @keyframes progress {
-   to { --progress-value: 100; }
+    to { --progress-value: var(--percentage); }
   }
   
   .progress-bar {
