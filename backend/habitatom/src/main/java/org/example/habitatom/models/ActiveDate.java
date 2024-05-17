@@ -1,5 +1,6 @@
 package org.example.habitatom.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +18,6 @@ public class ActiveDate {
     private Long Id;
     private Date date;
     @ManyToOne()
+    @JsonIgnore
     private Task task;
 }

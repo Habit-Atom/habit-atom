@@ -1,6 +1,7 @@
 package org.example.habitatom.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.core.Ordered;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.context.annotation.Bean;
@@ -31,12 +32,14 @@ public class WebConfig {
                 HttpMethod.GET.name(),
                 HttpMethod.POST.name(),
                 HttpMethod.DELETE.name(),
-                HttpMethod.PUT.name()
+                HttpMethod.PUT.name(),
+                HttpMethod.OPTIONS.name() // Include OPTIONS method
         ));
+        config.addExposedHeader(HttpHeaders.AUTHORIZATION); // Expose Authorization header
         config.setMaxAge(3600L);
         source.registerCorsConfiguration("/**", config);
         FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
-        bean.setOrder(-102);
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE); // Set the highest precedence
         return bean;
     }
 }

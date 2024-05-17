@@ -29,8 +29,8 @@ public class Habit {
     @OneToMany(mappedBy = "habit")
     private List<DaysOfWeek> days;
     @ManyToOne()
-    @JsonIgnore
     private AppUser user;
     @OneToMany(mappedBy = "habit")
+    @JsonIgnore
     private List<HabitCompletion> habitCompletions;
 }

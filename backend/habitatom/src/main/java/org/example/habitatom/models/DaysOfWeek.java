@@ -1,5 +1,6 @@
 package org.example.habitatom.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +17,6 @@ public class DaysOfWeek {
     private Long Id;
     private Day day;
     @ManyToOne()
+    @JsonIgnore
     private Habit habit;
 }

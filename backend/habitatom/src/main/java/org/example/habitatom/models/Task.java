@@ -26,8 +26,8 @@ public class Task {
     @OneToMany(mappedBy = "task")
     private List<ActiveDate> activeDates;
     @ManyToOne()
-    @JsonIgnore
     private AppUser user;
     @OneToMany(mappedBy = "task")
+    @JsonIgnore
     private List<TaskCompletion> taskCompletions;
 }
