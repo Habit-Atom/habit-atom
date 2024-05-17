@@ -14,6 +14,6 @@ public class Icon {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @Lob
-    @Column(name = "icon", columnDefinition = "BLOB")
+    @Column(name = "icon", columnDefinition = "bytea")
     private byte[] icon;
 }

@@ -1,10 +1,10 @@
 package org.example.habitatom.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.habitatom.models.enumeration.Color;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,14 +22,15 @@ public class Habit {
     private Long Id;
     private String name;
     @Lob
-    @Column(name = "icon", columnDefinition = "BLOB")
+    @Column(name = "icon", columnDefinition = "bytea")
     private byte[] icon;
-    private Color color;
+    private String color;
     private String duration;
     @OneToMany(mappedBy = "habit")
     private List<DaysOfWeek> days;
     @ManyToOne()
-    private User user;
+    @JsonIgnore
+    private AppUser user;
     @OneToMany(mappedBy = "habit")
     private List<HabitCompletion> habitCompletions;
 }

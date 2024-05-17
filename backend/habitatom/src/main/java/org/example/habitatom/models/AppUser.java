@@ -1,5 +1,6 @@
 package org.example.habitatom.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
@@ -19,7 +20,9 @@ public class User {
     private String email;
     private String password;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Habit> habits;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Task> tasks;
 }

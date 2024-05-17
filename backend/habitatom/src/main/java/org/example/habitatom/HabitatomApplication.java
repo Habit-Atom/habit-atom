@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HabitAtomApplication {
+public class HabitatomApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HabitAtomApplication.class, args);
+        SpringApplication.run(HabitatomApplication.class, args);
     }
 
 }
