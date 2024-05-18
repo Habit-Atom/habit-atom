@@ -1,5 +1,6 @@
 import React from 'react';
 import '../Css/DailyProgress.css';
+import { ProgressBar } from './ProgressBar';
 
 export const DailyProgress = ({ habits, tasks }) => {
   const totalHabits = habits.length;
@@ -29,11 +30,7 @@ export const DailyProgress = ({ habits, tasks }) => {
           </div>
         </div>
       </div>
-      <div id="progress-bar-container">
-        <div className="progress-bar" style={{'--percentage': percentage}}>
-          <progress value={percentage} max="100" style={{ visibility: 'hidden', height: 0, width: 0 }} id='progress-bar'>{percentage}%</progress>
-        </div>
-      </div>
+      <ProgressBar percentage={percentage} location={"dashboard"}></ProgressBar>
     </div>
   );
 };
