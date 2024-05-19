@@ -30,7 +30,7 @@ const eventsFromDatabase = [
 
 const generateEventsFromDatabase = (events) => {
   return events.map(event => ({
-    title: <ProgressBar percentage={event.percentage} location={"calendar"}/>,
+    title: <ProgressBar percentage={event.percentage} location={"calendar"} />,
     start: event.date,
     end: event.date,
   }));
@@ -46,7 +46,7 @@ export const Calendar = () => (
       startAccessor="start"
       endAccessor="end"
       style={{ height: '90%', width: '100%' }}
-      dayPropGetter={dayPropGetter} 
+      dayPropGetter={dayPropGetter}
     />
   </div>
 );

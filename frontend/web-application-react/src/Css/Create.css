@@ -1,16 +1,16 @@
-#progress {
+#create {
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
 }
 
-#progress-buttons-container {
+#create-buttons-container {
     margin-top: 60px;
 }
 
-#weekly-text,
-#yearly-text {
+#habit-text,
+#task-text {
     position: absolute;
     color: white;
     font-weight: 600;
@@ -24,13 +24,11 @@
     user-select: none;
 }
 
-#yearly-text {
+#task-text {
     left: 50%;
 }
 
-#charts-container {
-    height: 100%;
-    width: 100%;
+.form-container{
     display: flex;
     justify-content: space-around;
     align-items: center;

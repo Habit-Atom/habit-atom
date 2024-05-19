@@ -46,7 +46,7 @@ export const Habit = ({ habit, completed }) => {
           type="checkbox"
           id={`checkbox-${name}`}
           defaultChecked={isCompleted}
-          onClick={handleCheckboxClick} // Add onClick event handler
+          onClick={handleCheckboxClick}
         />
         <label htmlFor={`checkbox-${name}`} style={roundLabelStyle}></label>
       </div>

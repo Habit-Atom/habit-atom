@@ -3,13 +3,13 @@ import "../Css/Progress.css";
 import { PieChart, LineChart } from '@mui/x-charts';
 
 export const Progress = () => {
-    const [habits, setHabits] = useState(false);
+    const [toggle, setToggle] = useState(false);
     let xLabels = [];
     let uData = [];
 
-    if (habits) {
+    if (toggle) {
         xLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        uData = [20, 55, 30, 85, 15, 50, 70,20, 55, 30, 85, 15];
+        uData = [20, 55, 30, 85, 15, 50, 70, 20, 55, 30, 85, 15];
     } else {
         xLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         uData = [20, 55, 30, 85, 15, 50, 70];
@@ -20,11 +20,11 @@ export const Progress = () => {
             <div id="progress-buttons-container">
                 <div className="checkbox-wrapper-22">
                     <label className="switch" htmlFor="checkbox">
-                        <input 
-                            type="checkbox" 
-                            id="checkbox" 
-                            checked={habits} 
-                            onChange={() => setHabits(!habits)} 
+                        <input
+                            type="checkbox"
+                            id="checkbox"
+                            checked={toggle}
+                            onChange={() => setToggle(!toggle)}
                         />
                         <div className="slider round"></div>
                         <p id="weekly-text">Weekly</p>
