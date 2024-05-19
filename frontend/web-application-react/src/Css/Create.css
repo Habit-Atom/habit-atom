@@ -1,3 +1,10 @@
+.App {
+    background-image: url('../../public/HabitAtomBackground.png');
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; 
+}
+
 #create {
     display: flex;
     flex-direction: column;
