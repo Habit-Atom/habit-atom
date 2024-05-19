@@ -9,6 +9,27 @@ const durations = [
     { value: '2 hours', label: '2 hours' }
 ];
 
+const colors = [
+    "orange",
+    "amber",
+    "lime",
+    "teal",
+    "blue",
+    "indigo"
+];
+
+const daysLeft = [
+    "Monday",
+    "Tuesday",
+    "Wednesday"
+];
+const daysRight = [
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+];
+
 
 export const HabitForm = () => {
 
@@ -29,71 +50,84 @@ export const HabitForm = () => {
 
     return (
         <form className="form-container">
-            <div className='left-side-form'>
-                <div className='form-block'>
-                    <label htmlFor="habit-name">Habit name</label>
-                    <input type="text" name="habit-name" id='habit-name' />
+            <div className="top-side-form">
+                <div className='left-side-form'>
+                    <div className='form-block'>
+                        <label htmlFor="habit-name">Habit name</label>
+                        <input type="text" name="habit-name" id='habit-name' />
+                    </div>
+                    <div className='form-block'>
+                        <label htmlFor="habit-icon">Choose or upload icon</label>
+                    </div>
+                    <div className='form-block'>
+                        <label htmlFor="habit-duration">Duration</label>
+                        <select required name="habit-duration" id="habit-duration" value={duration} onChange={handleDurationChange}>
+                            <option value="">Select</option>
+                            {durations.map(option => (
+                                <option key={option.value} value={option.value}>{option.label}</option>
+                            ))}
+                            <option value="custom">Custom</option>
+                        </select>
+                        {duration === 'custom' && (
+                            <input
+                                type="text"
+                                name="custom-duration"
+                                id="custom-duration"
+                                placeholder="Enter custom duration"
+                                value={customDuration}
+                                onChange={handleCustomDurationChange}
+                            />
+                        )}
+                    </div>
+                    <div className='form-block'>
+                        <label htmlFor="color">Choose color</label>
+                        <div className="color-options">
+                            {colors.map(color => (
+                                <label key={color} className={color}>
+                                    <input type="radio" name="color" value={color} />
+                                    <div className="button"><span></span></div>
+                                </label>
+                            ))}
+                        </div>
+                    </div>
                 </div>
-                <div className='form-block'>
-                    <label htmlFor="habit-icon">Choose or upload icon</label>
-                </div>
-                <div className='form-block'>
-                    <label htmlFor="habit-duration">Duration</label>
-                    <select required name="habit-duration" id="habit-duration" value={duration} onChange={handleDurationChange}>
-                        <option value="">Select</option>
-                        {durations.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                        <option value="custom">Custom</option>
-                    </select>
-                    {duration === 'custom' && (
-                        <input
-                            type="text"
-                            name="custom-duration"
-                            id="custom-duration"
-                            placeholder="Enter custom duration"
-                            value={customDuration}
-                            onChange={handleCustomDurationChange}
-                        />
-                    )}
-                </div>
-                <div className='form-block'>
-                    <label htmlFor="color">Choose color</label>
-                    <div className="color-options">
-                        <label class="orange">
-                            <input type="radio" name="color" value="orange" />
-                            <div class="button"><span></span></div>
-                        </label>
-
-                        <label class="amber">
-                            <input type="radio" name="color" value="amber" />
-                            <div class="button"><span></span></div>
-                        </label>
-
-                        <label class="lime">
-                            <input type="radio" name="color" value="lime" />
-                            <div class="button"><span></span></div>
-                        </label>
-
-                        <label class="teal">
-                            <input type="radio" name="color" value="teal" />
-                            <div class="button"><span></span></div>
-                        </label>
-
-                        <label class="blue">
-                            <input type="radio" name="color" value="blue" />
-                            <div class="button"><span></span></div>
-                        </label>
-
-                        <label class="indigo">
-                            <input type="radio" name="color" value="indigo" />
-                            <div class="button"><span></span></div>
-                        </label>
+                <div className='right-side-form'>
+                    <p className="selectDaysTitle">Select days</p>
+                    <div className='select-days-block'>
+                        <div>
+                            <div className="selectDays">
+                                <label className="round-checkbox-label">
+                                    <span>Select All</span>
+                                    <input type="checkbox" class="round-checkbox-input" />
+                                    <span className="custom-checkbox"></span>
+                                </label>
+                            </div>
+                            {daysLeft.map(day => (
+                                <div className="selectDays" key={day}>
+                                    <label className="round-checkbox-label">
+                                        <span>{day}</span>
+                                        <input type="checkbox" class="round-checkbox-input" />
+                                        <span className="custom-checkbox"></span>
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
+                        <div>
+                            {daysRight.map(day => (
+                                <div className="selectDays" key={day}>
+                                    <label className="round-checkbox-label">
+                                        <span>{day}</span>
+                                        <input type="checkbox" class="round-checkbox-input" />
+                                        <span className="custom-checkbox"></span>
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className='right-side-form'>
-                
+            <div>
+                <input className="addHabitButton" type="submit" value={"Add Habit"} />
             </div>
         </form>
     )
