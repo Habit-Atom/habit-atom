@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
-import "../Css/Create.css"
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { HabitForm } from "../Components/HabitForm"
 import { TaskForm } from "../Components/TaskForm"
+import "../Css/Create.css"
 
 export const Create = () => {
-    const [toggle, setToggle] = useState(false);
+    const location = useLocation();
+    const initialToggleState = location.state?.toggle ?? false;
+    const [toggle, setToggle] = useState(initialToggleState);
+
+    useEffect(() => {
+        if (location.state && location.state.toggle !== undefined) {
+            setToggle(location.state.toggle);
+        }
+    }, [location.state]);
     return (
         <main className='create'>
             <div id="create-buttons-container">

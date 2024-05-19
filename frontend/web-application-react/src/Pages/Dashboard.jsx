@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Css/Dashboard.css'
 import { DailyProgress } from '../Components/DailyProgress'
 import { CalendarElement } from '../Components/CalendarElement'
@@ -64,6 +65,16 @@ export const Dashboard = () => {
     renderTasks();
   }, []);
 
+  const navigate = useNavigate();
+
+  const handleAddHabitClick = () => {
+    navigate('/create', { state: { toggle: false } });
+  };
+  const handleAddTaskClick = () => {
+    navigate('/create', { state: { toggle: true } });
+  };
+
+
   return (
     <main>
       <h1 id="page-title">Dashboard</h1>
@@ -77,7 +88,7 @@ export const Dashboard = () => {
         <div className='outer-container'>
           <div className='header'>
             <h2>Habits</h2>
-            <button>Add Habit</button>
+            <button onClick={handleAddHabitClick}>Add Habit</button>
           </div>
           <div className='inner-container'>
             {habits.map((d) => (
@@ -88,7 +99,7 @@ export const Dashboard = () => {
         <div className='outer-container'>
           <div className='header'>
             <h2>Tasks</h2>
-            <button>Add Task</button>
+            <button onClick={handleAddTaskClick}>Add Task</button>
           </div>
           <div className='inner-container'>
             {tasks.map((d) => (

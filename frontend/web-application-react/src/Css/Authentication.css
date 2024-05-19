@@ -1,0 +1,35 @@
+#auth-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sc-kpDprT{
+    padding : 0 !important;
+}
+
+.kWjGPR {
+    background: #0BC682;
+    background: linear-gradient(to right, #0BC682, #088E5E) !important;
+}
+
+.kqoyVH {
+    background: #0BC682;
+    background: linear-gradient(to right, #088E5E, #0BC682) !important;
+}
+
+.eqHcJi {
+    border: 2px solid white !important;
+    background-color: #0BC682 !important;
+}
+.sc-cwHqhk{
+    padding: 0 15px !important;
+}
+
+.kSynID {
+    width: 800px !important;
+    max-width: 100% !important;
+    min-height: 500px !important;
+}
