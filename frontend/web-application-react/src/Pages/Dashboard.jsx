@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../Css/Dashboard.css'
 import { DailyProgress } from '../Components/DailyProgress'
 import { CalendarElement } from '../Components/CalendarElement'
-import { request } from '../Helpers/axios_helper'
+import { request, setAuthHeader } from '../Helpers/axios_helper'
 import { Habit } from '../Components/Habit'
 import { Task } from '../Components/Task'
 

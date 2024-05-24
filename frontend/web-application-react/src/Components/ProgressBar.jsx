@@ -19,9 +19,10 @@ export const ProgressBar = ({ percentage, location }) => {
   return (
     <div id="progress-bar-container">
       <div className="progress-bar" style={{ '--percentage': percentage, height, width, fontSize }}>
-        <progress value={percentage} max="100" style={{ visibility: 'hidden', height: 0, width: 0 }} id='progress-bar'>{percentage}%</progress>
+         
       </div>
     </div>
   );
 };
 
+// <progress value={percentage} max="100" style={{ visibility: 'hidden', height: 0, width: 0 }} id='progress-bar'>{percentage}%</progress>

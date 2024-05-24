@@ -11,10 +11,10 @@ import './App.css';
 
 function App() {
   const location = useLocation();
-    const shouldShowSidebar = location.pathname !== '/auth';
+  const shouldShowSidebar = location.pathname !== '/auth';
   return (
     <div className="App">
-       {shouldShowSidebar && <Sidebar />}
+      {shouldShowSidebar && <Sidebar />}
       <Routes>
         <Route path="/" element={<Dashboard />}> </Route>
         <Route path="/progress" element={<Progress />}> </Route>

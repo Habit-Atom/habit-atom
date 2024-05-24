@@ -1,10 +1,3 @@
-// Set the JWT token
-function storeToken(token) {
-  chrome.storage.local.set({ jwtToken: token }, function() {
-    console.log('Token is stored.');
-  });
-}
-
 function sendRequest(endpoint, type, options = {}) {
   chrome.storage.local.get(['jwtToken'], function(result) {
     const token = result.jwtToken;
@@ -70,10 +63,8 @@ function createStyles(data, type) {
     }
   `;
   }
-
-  
-  
 }
+
 
 // Function to create habit/task HTML using template literals
 function createHtml(data, type) {
@@ -111,6 +102,7 @@ function createHtml(data, type) {
   }
 }
 
-storeToken('your-jwt-token-here');
+
 sendRequest('http://localhost:8080/api/habits', "habit");
 sendRequest('http://localhost:8080/api/tasks', "task");
+

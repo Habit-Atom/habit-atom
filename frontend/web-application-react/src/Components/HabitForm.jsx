@@ -98,7 +98,7 @@ export const HabitForm = () => {
                             <div className="selectDays">
                                 <label className="round-checkbox-label">
                                     <span>Select All</span>
-                                    <input type="checkbox" class="round-checkbox-input" />
+                                    <input type="checkbox" className="round-checkbox-input" />
                                     <span className="custom-checkbox"></span>
                                 </label>
                             </div>
@@ -106,7 +106,7 @@ export const HabitForm = () => {
                                 <div className="selectDays" key={day}>
                                     <label className="round-checkbox-label">
                                         <span>{day}</span>
-                                        <input type="checkbox" class="round-checkbox-input" />
+                                        <input type="checkbox" className="round-checkbox-input" />
                                         <span className="custom-checkbox"></span>
                                     </label>
                                 </div>
@@ -117,7 +117,7 @@ export const HabitForm = () => {
                                 <div className="selectDays" key={day}>
                                     <label className="round-checkbox-label">
                                         <span>{day}</span>
-                                        <input type="checkbox" class="round-checkbox-input" />
+                                        <input type="checkbox" className="round-checkbox-input" />
                                         <span className="custom-checkbox"></span>
                                     </label>
                                 </div>
