@@ -16,6 +16,6 @@ import java.util.List;
 public interface HabitCompletionRepository extends JpaRepository<HabitCompletion, Long> {
     boolean existsByHabitAndDate(Habit habit, LocalDate date);
 
-    @Query("SELECT hc FROM HabitCompletion hc WHERE hc.habit.user.email = :email")
-    List<HabitCompletion> findAllByUserEmail(@Param("email") String email);
+    @Query("SELECT hc FROM HabitCompletion hc WHERE hc.habit.user.email = :email and hc.date = :date")
+    List<HabitCompletion> findAllByUserEmailAndDate(@Param("email") String email, @Param("date") LocalDate date);
 }

@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,10 +29,10 @@ public class HabitCompletionController {
     }
 
     @GetMapping("")
-    public List<HabitCompletion> getAllHabits(@RequestHeader(value = "Authorization") String authorizationHeader) {
+    public List<HabitCompletion> getAllHabits(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestParam LocalDate date) {
         String token = authorizationHeader.replace("Bearer ", "");
         String userEmail = jwtService.extractUserName(token);
-        return this.habitCompletionService.getAllHabits(userEmail);
+        return this.habitCompletionService.getAllHabits(userEmail, date);
     }
     @PostMapping("/updateStatus")
     public ResponseEntity<Void> updateHabitStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody UpdateRequest updateRequest) {

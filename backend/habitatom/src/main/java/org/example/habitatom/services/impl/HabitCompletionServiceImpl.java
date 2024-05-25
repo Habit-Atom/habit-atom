@@ -26,25 +26,23 @@ public class HabitCompletionServiceImpl implements HabitCompletionService {
     }
 
     @Override
-    public List<HabitCompletion> getAllHabits(String email) {
-        return habitCompletionRepository.findAllByUserEmail(email);
+    public List<HabitCompletion> getAllHabits(String email, LocalDate date) {
+        return habitCompletionRepository.findAllByUserEmailAndDate(email, date);
     }
 
     @Transactional
-    public void createDailyHabitCompletions() {
-        DayOfWeek currentDayOfWeek = LocalDate.now().getDayOfWeek();
-        Day currentDay = DayUtils.transformToDay(currentDayOfWeek);
+    public void createFutureHabitCompletions(LocalDate date) {
+        DayOfWeek futureDayOfWeek = date.plusDays(5).getDayOfWeek();
+        Day futureDay = DayUtils.transformToDay(futureDayOfWeek);
 
-        List<DaysOfWeek> habitsForToday = daysOfWeekRepository.findByDay(currentDay);
+        List<DaysOfWeek> habitsForToday = daysOfWeekRepository.findByDay(futureDay);
 
         for (DaysOfWeek daysOfWeek : habitsForToday) {
             Habit habit = daysOfWeek.getHabit();
-            LocalDate today = LocalDate.now();
-
-            if (!habitCompletionRepository.existsByHabitAndDate(habit, today)) {
+            if (!habitCompletionRepository.existsByHabitAndDate(habit, date)) {
                 HabitCompletion habitCompletion = new HabitCompletion();
                 habitCompletion.setHabit(habit);
-                habitCompletion.setDate(today);
+                habitCompletion.setDate(date);
                 habitCompletion.setCompleted(false);
                 habitCompletionRepository.save(habitCompletion);
             }

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,12 +29,11 @@ public class TaskCompletionController {
     }
 
     @GetMapping("")
-    public List<TaskCompletion> getAllTasks(@RequestHeader(value = "Authorization") String authorizationHeader) {
+    public List<TaskCompletion> getAllTasks(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestParam LocalDate date) {
         String token = authorizationHeader.replace("Bearer ", "");
         String userEmail = jwtService.extractUserName(token);
-        return this.taskCompletionService.getAllTasks(userEmail);
+        return this.taskCompletionService.getAllTasks(userEmail, date);
     }
-
     @PostMapping("/updateStatus")
     public ResponseEntity<Void> updateHabitStatus(@RequestBody UpdateRequest updateRequest) {
         try {
