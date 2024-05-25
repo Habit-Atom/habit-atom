@@ -50,12 +50,14 @@ export const HabitForm = () => {
     };
 
     const handleDayChange = (day) => {
-        const updatedSelectedDays = {
-            ...selectedDays,
-            [day]: !selectedDays[day]
-        };
-        setSelectedDays(updatedSelectedDays);
-        setSelectAll(Object.keys(updatedSelectedDays).every(day => updatedSelectedDays[day]));
+        setSelectedDays(prevSelectedDays => {
+            const updatedSelectedDays = {
+                ...prevSelectedDays,
+                [day]: !prevSelectedDays[day]
+            };
+            setSelectAll([...daysLeft, ...daysRight].every(day => updatedSelectedDays[day]));
+            return updatedSelectedDays;
+        });
     };
 
     const handleSelectAllChange = () => {
