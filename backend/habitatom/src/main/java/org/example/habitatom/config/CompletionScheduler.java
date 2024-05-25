@@ -33,7 +33,9 @@ public class CompletionScheduler {
                 taskCompletionService.createFutureTaskCompletions(temp);
             }
             lastUpdateDateRepository.deleteAll();
-            lastUpdateDateRepository.save(new LastUpdateDate((long) 1, today));
+            LastUpdateDate lastUpdateDate = new LastUpdateDate();
+            lastUpdateDate.setDate(today);
+            lastUpdateDateRepository.save(lastUpdateDate);
         }
 
     }
