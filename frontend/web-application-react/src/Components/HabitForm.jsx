@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "../Css/HabitForm.css"
+import { request } from "../Helpers/axios_helper"
 
 const durations = [
     { value: '15 min', label: '15 min' },
@@ -67,8 +68,36 @@ export const HabitForm = () => {
         setSelectedDays(updatedSelectedDays);
     };
 
+    const handleAddHabit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const habitName = formData.get('habit-name');
+        const habitDuration = duration === 'custom' ? customDuration : duration;
+        const habitColor = formData.get('color');
+        const selectedDaysOfWeek = Object.entries(selectedDays)
+            .filter(([day, isSelected]) => isSelected)
+            .map(([day, isSelected]) => day);
+
+        const requestData = {
+            name: habitName,
+            duration: habitDuration,
+            color: habitColor,
+            selectedDaysOfWeek: selectedDaysOfWeek
+        };
+
+        console.log(requestData)
+
+        request("POST", "/api/habits/add", requestData)
+            .then((response) => {
+                // Handle success response here
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
-        <form className="form-container">
+        <form className="form-container" onSubmit={handleAddHabit}>
             <div className="top-side-form">
                 <div className='left-side-form'>
                     <div className='form-block'>
@@ -117,9 +146,9 @@ export const HabitForm = () => {
                             <div className="selectDays">
                                 <label className="round-checkbox-label">
                                     <span>Select All</span>
-                                    <input 
-                                        type="checkbox" 
-                                        className="round-checkbox-input" 
+                                    <input
+                                        type="checkbox"
+                                        className="round-checkbox-input"
                                         checked={selectAll}
                                         onChange={handleSelectAllChange}
                                     />

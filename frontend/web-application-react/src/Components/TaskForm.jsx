@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar } from "react-multi-date-picker"
 import "../Css/TaskForm.css"
+import { request } from "../Helpers/axios_helper"
 
 const durations = [
     { value: '15 min', label: '15 min' },
@@ -38,20 +39,50 @@ export const TaskForm = () => {
 
     const [values, setValues] = useState([])
 
+    const handleAddTask = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const taskName = formData.get('task-name');
+        const taskDuration = duration === 'custom' ? customDuration : duration;
+        const taskColor = formData.get('color');
+
+        if (values.length === 0) {
+            alert("Please select at least one active date.");
+            return;
+        }
+
+        const requestData = {
+            name: taskName,
+            duration: taskDuration,
+            color: taskColor,
+            activeDates: values.map(date => date.format("YYYY-MM-DD")),
+        };
+
+        console.log(requestData)
+
+        request("POST", "/api/tasks/add", requestData)
+            .then((response) => {
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     return (
-        <form className="form-container">
+        <form className="form-container" onSubmit={handleAddTask}>
             <div className="top-side-form">
                 <div className='left-side-form'>
                     <div className='form-block'>
-                        <label htmlFor="habit-name">Habit name</label>
-                        <input required type="text" name="habit-name" id='habit-name' />
+                        <label htmlFor="task-name">Task name</label>
+                        <input required type="text" name="task-name" id='task-name' />
                     </div>
                     <div className='form-block'>
                         <label>Choose or upload icon</label>
                     </div>
                     <div className='form-block'>
-                        <label htmlFor="habit-duration">Duration</label>
-                        <select required name="habit-duration" id="habit-duration" value={duration} onChange={handleDurationChange}>
+                        <label htmlFor="task-duration">Duration</label>
+                        <select required name="task-duration" id="task-duration" value={duration} onChange={handleDurationChange}>
                             <option value="">Select</option>
                             {durations.map(option => (
                                 <option key={option.value} value={option.value}>{option.label}</option>
