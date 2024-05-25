@@ -21,12 +21,12 @@ public class Habit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
-    @Lob
-    @Column(name = "icon", columnDefinition = "bytea")
-    private byte[] icon;
+//    @Lob
+//    @Column(name = "icon", columnDefinition = "bytea")
+//    private byte[] icon;
     private String color;
     private String duration;
-    @OneToMany(mappedBy = "habit")
+    @OneToMany(mappedBy = "habit", cascade = CascadeType.ALL)
     private List<DaysOfWeek> days;
     @ManyToOne()
     private AppUser user;

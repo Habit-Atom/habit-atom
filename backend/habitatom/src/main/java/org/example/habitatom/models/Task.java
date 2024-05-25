@@ -18,12 +18,12 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
-    @Lob
-    @Column(name = "icon", columnDefinition = "bytea")
-    private byte[] icon;
+//    @Lob
+//    @Column(name = "icon", columnDefinition = "bytea")
+//    private byte[] icon;
     private String color;
     private String duration;
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     private List<ActiveDate> activeDates;
     @ManyToOne()
     private AppUser user;

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -37,13 +39,13 @@ public class TaskServiceImpl implements TaskService {
         task.setColor(color);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        List<Date> datesPom = dates.stream()
+        List<LocalDate> datesPom = dates.stream()
                 .map(dateString -> {
                     try {
-                        // Parse the input date string to Date object
-                        return dateFormat.parse(dateString);
+                        return dateFormat.parse(dateString).toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate();
                     } catch (ParseException e) {
-                        // Handle parsing exception if needed
                         e.printStackTrace();
                         return null;
                     }
