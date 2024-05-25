@@ -26,8 +26,8 @@ public class HabitCompletionServiceImpl implements HabitCompletionService {
     }
 
     @Override
-    public List<HabitCompletion> getAllHabits() {
-        return habitCompletionRepository.findAll();
+    public List<HabitCompletion> getAllHabits(String email) {
+        return habitCompletionRepository.findAllByUserEmail(email);
     }
 
     @Transactional

@@ -2,6 +2,7 @@ package org.example.habitatom.web;
 
 import org.example.habitatom.models.HabitCompletion;
 import org.example.habitatom.services.HabitCompletionService;
+import org.example.habitatom.services.JwtService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +15,17 @@ import java.util.List;
 public class HabitCompletionController {
 
     private final HabitCompletionService habitCompletionService;
+    private final JwtService jwtService;
 
-    public HabitCompletionController(HabitCompletionService habitCompletionService) {
+    public HabitCompletionController(HabitCompletionService habitCompletionService, JwtService jwtService) {
         this.habitCompletionService = habitCompletionService;
+        this.jwtService = jwtService;
     }
 
     @GetMapping("")
     public List<HabitCompletion> getAllHabits(@RequestHeader(value = "Authorization") String authorizationHeader) {
         String token = authorizationHeader.replace("Bearer ", "");
-        return this.habitCompletionService.getAllHabits();
+        String userEmail = jwtService.extractUserName(token);
+        return this.habitCompletionService.getAllHabits(userEmail);
     }
 }

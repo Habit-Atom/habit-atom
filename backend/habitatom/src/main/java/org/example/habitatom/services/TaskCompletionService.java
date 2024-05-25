@@ -6,5 +6,5 @@ import org.example.habitatom.models.TaskCompletion;
 import java.util.List;
 
 public interface TaskCompletionService {
-    List<TaskCompletion> getAllTasks();
+    List<TaskCompletion> getAllTasks(String email);
 }

@@ -16,7 +16,7 @@ public class TaskCompletionServiceImpl implements TaskCompletionService {
         this.taskCompletionRepository = taskCompletionRepository;
     }
     @Override
-    public List<TaskCompletion> getAllTasks() {
-        return taskCompletionRepository.findAll();
+    public List<TaskCompletion> getAllTasks(String email) {
+        return taskCompletionRepository.findAllByUserEmail(email);
     }
 }

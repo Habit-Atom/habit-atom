@@ -6,6 +6,6 @@ import org.example.habitatom.models.HabitCompletion;
 import java.util.List;
 
 public interface HabitCompletionService {
-    List<HabitCompletion> getAllHabits();
+    List<HabitCompletion> getAllHabits(String email);
     void createDailyHabitCompletions();
 }
