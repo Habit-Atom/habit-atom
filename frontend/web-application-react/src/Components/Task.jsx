@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import "../Css/Task.css"
+import { request } from '../Helpers/axios_helper'
 
-export const Task = ({task, completed}) => {
+export const Task = ({id, task, completed}) => {
   const name = task.name.toLowerCase().replace(/\s+/g, '_');
   const [isCompleted, setIsCompleted] = useState(completed);
 
-  const handleCheckboxClick = () => {
-    setIsCompleted(!isCompleted); 
+  const handleCheckboxClick = async () => {
+    try {
+      await request('POST', '/api/tasks/updateStatus', {
+        id: id,
+      });
+      setIsCompleted(!isCompleted);
+    } catch (error) {
+      console.error('Error updating task status:', error);
+    }
   };
 
   const roundLabelStyle = {
@@ -37,7 +45,7 @@ export const Task = ({task, completed}) => {
           type="checkbox"
           id={`checkbox-${name}`}
           defaultChecked={isCompleted}
-          onClick={handleCheckboxClick}
+          onChange={handleCheckboxClick}
         />
         <label htmlFor={`checkbox-${name}`} style={roundLabelStyle}></label>
       </div>

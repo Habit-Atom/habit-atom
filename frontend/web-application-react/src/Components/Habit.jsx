@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import '../Css/Habit.css';
+import { request } from '../Helpers/axios_helper'
 
-export const Habit = ({ habit, completed }) => {
+export const Habit = ({id, habit, completed }) => {
   const name = habit.name.toLowerCase().replace(/\s+/g, '_');
   const [isCompleted, setIsCompleted] = useState(completed);
 
-  const handleCheckboxClick = () => {
-    setIsCompleted(!isCompleted); 
+  const handleCheckboxClick = async () => {
+    try {
+      await request('POST', '/api/habits/updateStatus', {
+        id: id,
+      });
+      setIsCompleted(!isCompleted);
+    } catch (error) {
+      console.error('Error updating habit status:', error);
+    }
   };
 
   const hexToRGBA = (hex, alpha) => {
@@ -46,7 +54,7 @@ export const Habit = ({ habit, completed }) => {
           type="checkbox"
           id={`checkbox-${name}`}
           defaultChecked={isCompleted}
-          onClick={handleCheckboxClick}
+          onChange={handleCheckboxClick}
         />
         <label htmlFor={`checkbox-${name}`} style={roundLabelStyle}></label>
       </div>

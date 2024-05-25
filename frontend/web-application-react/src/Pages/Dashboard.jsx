@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../Css/Dashboard.css'
 import { DailyProgress } from '../Components/DailyProgress'
 import { CalendarElement } from '../Components/CalendarElement'
-import { request, setAuthHeader } from '../Helpers/axios_helper'
+import { request } from '../Helpers/axios_helper'
 import { Habit } from '../Components/Habit'
 import { Task } from '../Components/Task'
 
@@ -92,7 +92,7 @@ export const Dashboard = () => {
           </div>
           <div className='inner-container'>
             {habits.map((d) => (
-              <Habit key={d.id} habit={d.habit} completed={d.completed} />
+              <Habit key={d.id} id={d.id} habit={d.habit} completed={d.completed} />
             ))}
           </div>
         </div>
@@ -103,7 +103,7 @@ export const Dashboard = () => {
           </div>
           <div className='inner-container'>
             {tasks.map((d) => (
-              <Task key={d.id} task={d.task} completed={d.completed} />
+              <Task key={d.id} id={d.id} task={d.task} completed={d.completed} />
             ))}
           </div>
         </div>
