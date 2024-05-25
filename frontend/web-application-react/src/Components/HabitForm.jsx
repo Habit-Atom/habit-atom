@@ -30,11 +30,11 @@ const daysRight = [
     "Sunday"
 ];
 
-
 export const HabitForm = () => {
-
     const [duration, setDuration] = useState('');
     const [customDuration, setCustomDuration] = useState('');
+    const [selectedDays, setSelectedDays] = useState({});
+    const [selectAll, setSelectAll] = useState(false);
 
     const handleDurationChange = (event) => {
         const { value } = event.target;
@@ -48,16 +48,35 @@ export const HabitForm = () => {
         setCustomDuration(event.target.value);
     };
 
+    const handleDayChange = (day) => {
+        const updatedSelectedDays = {
+            ...selectedDays,
+            [day]: !selectedDays[day]
+        };
+        setSelectedDays(updatedSelectedDays);
+        setSelectAll(Object.keys(updatedSelectedDays).every(day => updatedSelectedDays[day]));
+    };
+
+    const handleSelectAllChange = () => {
+        const newSelectAll = !selectAll;
+        setSelectAll(newSelectAll);
+        const updatedSelectedDays = {};
+        [...daysLeft, ...daysRight].forEach(day => {
+            updatedSelectedDays[day] = newSelectAll;
+        });
+        setSelectedDays(updatedSelectedDays);
+    };
+
     return (
         <form className="form-container">
             <div className="top-side-form">
                 <div className='left-side-form'>
                     <div className='form-block'>
                         <label htmlFor="habit-name">Habit name</label>
-                        <input type="text" name="habit-name" id='habit-name' />
+                        <input required type="text" name="habit-name" id='habit-name' />
                     </div>
                     <div className='form-block'>
-                        <label htmlFor="habit-icon">Choose or upload icon</label>
+                        <label>Choose or upload icon</label>
                     </div>
                     <div className='form-block'>
                         <label htmlFor="habit-duration">Duration</label>
@@ -98,7 +117,12 @@ export const HabitForm = () => {
                             <div className="selectDays">
                                 <label className="round-checkbox-label">
                                     <span>Select All</span>
-                                    <input type="checkbox" className="round-checkbox-input" />
+                                    <input 
+                                        type="checkbox" 
+                                        className="round-checkbox-input" 
+                                        checked={selectAll}
+                                        onChange={handleSelectAllChange}
+                                    />
                                     <span className="custom-checkbox"></span>
                                 </label>
                             </div>
@@ -106,7 +130,12 @@ export const HabitForm = () => {
                                 <div className="selectDays" key={day}>
                                     <label className="round-checkbox-label">
                                         <span>{day}</span>
-                                        <input type="checkbox" className="round-checkbox-input" />
+                                        <input
+                                            type="checkbox"
+                                            className="round-checkbox-input"
+                                            checked={selectedDays[day] || false}
+                                            onChange={() => handleDayChange(day)}
+                                        />
                                         <span className="custom-checkbox"></span>
                                     </label>
                                 </div>
@@ -117,7 +146,12 @@ export const HabitForm = () => {
                                 <div className="selectDays" key={day}>
                                     <label className="round-checkbox-label">
                                         <span>{day}</span>
-                                        <input type="checkbox" className="round-checkbox-input" />
+                                        <input
+                                            type="checkbox"
+                                            className="round-checkbox-input"
+                                            checked={selectedDays[day] || false}
+                                            onChange={() => handleDayChange(day)}
+                                        />
                                         <span className="custom-checkbox"></span>
                                     </label>
                                 </div>
@@ -130,5 +164,5 @@ export const HabitForm = () => {
                 <input className="addHabitButton" type="submit" value={"Add Habit"} />
             </div>
         </form>
-    )
-}
+    );
+};

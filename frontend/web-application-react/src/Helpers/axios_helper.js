@@ -1,12 +1,9 @@
 import axios from 'axios';
 
-export const getAuthToken = () => {
-    return window.localStorage.getItem('auth_token');
-};
+export const getAuthToken = () => window.localStorage.getItem('auth_token');
 
 export const setAuthHeader = (token) => {
     window.localStorage.setItem('auth_token', token);
-
     chrome.runtime.sendMessage(
         'mlkfffkkokjlijcbejckfafbgjjhcmkm',
         { action: 'storeToken', token: token },
@@ -23,33 +20,56 @@ export const setAuthHeader = (token) => {
 axios.defaults.baseURL = 'http://localhost:8080';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+let isRefreshing = false;
+let refreshSubscribers = [];
+
+const onRrefreshed = (token) => {
+    refreshSubscribers.map((callback) => callback(token));
+}
+
+const addRefreshSubscriber = (callback) => {
+    refreshSubscribers.push(callback);
+}
+
 const refreshToken = async () => {
     try {
-        const refreshToken = window.localStorage.getItem('auth_token'); // Assuming you have a refresh token stored
-        const response = await axios.post('/api/v1/refreshToken', { token: refreshToken });
+        const token = getAuthToken();
+        const response = await axios.post('/api/v1/refreshToken', { token });
         const newAuthToken = response.data.token;
         setAuthHeader(newAuthToken);
+        onRrefreshed(newAuthToken);
+        refreshSubscribers = [];
         return newAuthToken;
     } catch (error) {
         console.error('Failed to refresh token:', error);
-        // Optionally handle refresh token failure (e.g., logout user)
         return null;
+    } finally {
+        isRefreshing = false;
     }
 };
 
-// Response interceptor to handle 401 errors
 axios.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     async (error) => {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
+        const { config, response: { status } } = error;
+        const originalRequest = config;
+
+        if (status === 401 && !originalRequest._retry) {
+            if (isRefreshing) {
+                return new Promise((resolve) => {
+                    addRefreshSubscriber((token) => {
+                        originalRequest.headers.Authorization = `Bearer ${token}`;
+                        resolve(axios(originalRequest));
+                    });
+                });
+            }
+
             originalRequest._retry = true;
+            isRefreshing = true;
             const newToken = await refreshToken();
+
             if (newToken) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
-                originalRequest.headers['Authorization'] = `Bearer ${newToken}`;
+                originalRequest.headers.Authorization = `Bearer ${newToken}`;
                 return axios(originalRequest);
             }
         }
@@ -57,16 +77,9 @@ axios.interceptors.response.use(
     }
 );
 
-export const request = (method, url, data) => {
-    let headers = {};
-    if (getAuthToken() !== null && getAuthToken() !== "null") {
-        headers = { 'Authorization': `Bearer ${getAuthToken()}` };
-    }
-
-    return axios({
-        method: method,
-        url: url,
-        headers: headers,
-        data: data
-    });
-};
+export const request = (method, url, data) => axios({
+    method,
+    url,
+    data,
+    headers: getAuthToken() ? { Authorization: `Bearer ${getAuthToken()}` } : {},
+});

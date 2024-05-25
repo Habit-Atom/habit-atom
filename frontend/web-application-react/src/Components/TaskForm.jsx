@@ -44,10 +44,10 @@ export const TaskForm = () => {
                 <div className='left-side-form'>
                     <div className='form-block'>
                         <label htmlFor="habit-name">Habit name</label>
-                        <input type="text" name="habit-name" id='habit-name' />
+                        <input required type="text" name="habit-name" id='habit-name' />
                     </div>
                     <div className='form-block'>
-                        <label htmlFor="habit-icon">Choose or upload icon</label>
+                        <label>Choose or upload icon</label>
                     </div>
                     <div className='form-block'>
                         <label htmlFor="habit-duration">Duration</label>

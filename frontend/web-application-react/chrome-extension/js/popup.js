@@ -73,7 +73,7 @@ function createHtml(data, type) {
     return `
       <div class="habit" style="border: 3px solid ${data.habit.color}">
         <div class="habit-details-container">
-          <img src="${data.habit.icon}" />
+          <img src="" />
           <div class="habit-name" style="color: ${data.habit.color}">${data.habit.name}</div>
         </div>
         <div class="round">
@@ -87,7 +87,7 @@ function createHtml(data, type) {
     return `
       <div class="task" style="border: 3px solid ${data.task.color}">
         <div class="task-details-container">
-          <img src="${data.task.icon}" />
+          <img src="" />
           <div class="task-name" style="color: ${data.task.color}">${data.task.name}</div>
         </div>
         <div class="round">

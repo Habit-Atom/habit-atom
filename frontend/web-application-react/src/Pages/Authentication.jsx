@@ -53,7 +53,7 @@ export const Authentication = () => {
   return (
     <div id="auth-container">
       <Components.Container>
-        <Components.SignUpContainer signingIn={signIn}>
+        <Components.SignUpContainer $signingIn={signIn}>
           <Components.Form onSubmit={handleSignUp}>
             <Components.Title>Create Account</Components.Title>
             <Components.Input type="text" placeholder="Username" name="username" />
@@ -62,7 +62,7 @@ export const Authentication = () => {
             <Components.Button>Sign Up</Components.Button>
           </Components.Form>
         </Components.SignUpContainer>
-        <Components.SignInContainer signingIn={signIn}>
+        <Components.SignInContainer $signingIn={signIn}>
           <Components.Form  onSubmit={handleSignIn}>
             <Components.Title>Sign in</Components.Title>
             <Components.Input type="email" placeholder="Email" name="email" />
@@ -71,9 +71,9 @@ export const Authentication = () => {
             <Components.Button>Sign In</Components.Button>
           </Components.Form>
         </Components.SignInContainer>
-        <Components.OverlayContainer signingIn={signIn}>
-          <Components.Overlay signingIn={signIn}>
-            <Components.LeftOverlayPanel signingIn={signIn}>
+        <Components.OverlayContainer $signingIn={signIn}>
+          <Components.Overlay $signingIn={signIn}>
+            <Components.LeftOverlayPanel $signingIn={signIn}>
               <Components.Title>Welcome Back!</Components.Title>
               <Components.Paragraph>
                 To keep connected with us please login with<br />your personal info
@@ -82,7 +82,7 @@ export const Authentication = () => {
                 Sign In
               </Components.GhostButton>
             </Components.LeftOverlayPanel>
-            <Components.RightOverlayPanel signingIn={signIn}>
+            <Components.RightOverlayPanel $signingIn={signIn}>
               <Components.Title>Hello, Friend!</Components.Title>
               <Components.Paragraph>
                 Enter your personal details and start journey with us

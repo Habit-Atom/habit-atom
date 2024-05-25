@@ -7,6 +7,7 @@ import { Dashboard } from './Pages/Dashboard';
 import { Progress } from './Pages/Progress';
 import { Authentication } from './Pages/Authentication';
 import { Sidebar } from './Components/Sidebar';
+import { ProtectedRoute } from './Helpers/ProtectedRoute';
 import './App.css';
 
 function App() {
@@ -16,10 +17,10 @@ function App() {
     <div className="App">
       {shouldShowSidebar && <Sidebar />}
       <Routes>
-        <Route path="/" element={<Dashboard />}> </Route>
-        <Route path="/progress" element={<Progress />}> </Route>
-        <Route path="/calendar" element={<Calendar />}> </Route>
-        <Route path="/create" element={<Create />}> </Route>
+        <Route path="/" element={<ProtectedRoute element={<Dashboard />} />} />
+        <Route path="/progress" element={<ProtectedRoute element={<Progress />} />} />
+        <Route path="/calendar" element={<ProtectedRoute element={<Calendar />} />} />
+        <Route path="/create" element={<ProtectedRoute element={<Create />} />} />
         <Route path="/auth" element={<Authentication />}> </Route>
       </Routes>
     </div>
