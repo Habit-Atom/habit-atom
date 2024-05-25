@@ -50,4 +50,13 @@ public class HabitCompletionServiceImpl implements HabitCompletionService {
             }
         }
     }
+
+    @Override
+    public void updateHabitStatus(Long id) {
+        HabitCompletion habitCompletion = habitCompletionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
+        habitCompletion.setCompleted(!habitCompletion.isCompleted());
+        habitCompletionRepository.save(habitCompletion);
+
+    }
 }
