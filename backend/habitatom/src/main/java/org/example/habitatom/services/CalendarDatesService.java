@@ -9,7 +9,11 @@ import java.util.List;
 public interface CalendarDatesService {
     List<CalendarDates> getDates(String email);
 
-    List<Double> getDataForLineChart(String userEmail);
+    List<Double> getDataForLineChartWeekly(String userEmail);
 
-    HashMap<String, PieChartData> getDataForPieChart(String userEmail);
+    HashMap<String, PieChartData> getDataForPieChartWeekly(String userEmail);
+
+    List<Double> getDataForLineChartMonthly(String userEmail);
+
+    HashMap<String, PieChartData> getDataForPieChartMonthly(String userEmail);
 }

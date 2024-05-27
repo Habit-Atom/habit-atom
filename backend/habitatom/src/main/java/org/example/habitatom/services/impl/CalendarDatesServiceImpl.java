@@ -31,8 +31,7 @@ public class CalendarDatesServiceImpl implements CalendarDatesService {
         return calendarDatesRepository.findAllByUserEmail(email);
     }
 
-    @Override
-    public List<Double> getDataForLineChart(String userEmail) {
+    private List<LocalDate> getCurrentWeekDates(){
         LocalDate today = LocalDate.now();
 
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
@@ -41,9 +40,79 @@ public class CalendarDatesServiceImpl implements CalendarDatesService {
         for (LocalDate date = startOfWeek; !date.isAfter(today); date = date.plusDays(1)) {
             currentWeekDates.add(date);
         }
+
+        return currentWeekDates;
+    }
+
+    private List<LocalDate> getCurrentMonthDates(){
+        LocalDate today = LocalDate.now();
+
+        LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+        LocalDate lastDayOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+
+        List<LocalDate> currentMonthDates = new ArrayList<>();
+        for (LocalDate date = firstDayOfMonth; !date.isAfter(lastDayOfMonth); date = date.plusDays(1)) {
+            currentMonthDates.add(date);
+        }
+
+        return currentMonthDates;
+
+    }
+
+    @Override
+    public List<Double> getDataForLineChartWeekly(String userEmail) {
+        List<LocalDate> currentWeekDates = getCurrentWeekDates();
+        return getDataForLineChart(userEmail, currentWeekDates);
+    }
+
+    @Override
+    public HashMap<String, PieChartData> getDataForPieChartWeekly(String userEmail) {
+        List<LocalDate> currentWeekDates = getCurrentWeekDates();
+        return getDataForPieChart(userEmail, currentWeekDates);
+    }
+
+    @Override
+    public List<Double> getDataForLineChartMonthly(String userEmail) {
+        List<LocalDate> currentMonthDates = getCurrentMonthDates();
+        List<Double> monthlyData = getDataForLineChart(userEmail, currentMonthDates);
+        return groupDataIntoWeeks(monthlyData);
+    }
+
+    private List<Double> groupDataIntoWeeks(List<Double> monthlyData) {
+        List<Double> weeklyData = new ArrayList<>();
+        int totalDays = monthlyData.size();
+        int fullWeeks = totalDays / 7;
+        int remainingDays = totalDays % 7;
+
+        for (int i = 0; i < fullWeeks; i++) {
+            int start = i * 7;
+            int end = start + 7;
+            List<Double> weekData = monthlyData.subList(start, end);
+            double weeklyAverage = weekData.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+            weeklyData.add(weeklyAverage);
+        }
+
+        if (remainingDays > 0) {
+            List<Double> lastWeekData = monthlyData.subList(fullWeeks * 7, totalDays);
+            double lastWeekAverage = lastWeekData.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+            weeklyData.add(lastWeekAverage);
+        }
+
+        return weeklyData;
+    }
+
+    @Override
+    public HashMap<String, PieChartData> getDataForPieChartMonthly(String userEmail) {
+        List<LocalDate> currentMonthDates = getCurrentMonthDates();
+        return getDataForPieChart(userEmail, currentMonthDates);
+    }
+
+
+    private List<Double> getDataForLineChart(String email, List<LocalDate> dates){
         List<CalendarDates> calendarDatesList = new ArrayList<>();
-        for (LocalDate currentWeekDate : currentWeekDates) {
-            CalendarDates calendarDates = calendarDatesRepository.findByUserEmailAndDate(userEmail, currentWeekDate);
+
+        for (LocalDate currentWeekDate : dates) {
+            CalendarDates calendarDates = calendarDatesRepository.findByUserEmailAndDate(email, currentWeekDate);
             if(calendarDates != null){
                 calendarDatesList.add(calendarDates);
             }else{
@@ -57,27 +126,16 @@ public class CalendarDatesServiceImpl implements CalendarDatesService {
         return calendarDatesList.stream().map(CalendarDates::getPercentOfCompletion).toList();
     }
 
-    @Override
-    public HashMap<String, PieChartData> getDataForPieChart(String userEmail) {
-        LocalDate today = LocalDate.now();
-
-        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        List<LocalDate> currentWeekDates = new ArrayList<>();
-
-        for (LocalDate date = startOfWeek; !date.isAfter(today); date = date.plusDays(1)) {
-            currentWeekDates.add(date);
-        }
-
+    private HashMap<String, PieChartData> getDataForPieChart(String email, List<LocalDate> dates){
         List<HabitCompletion> habits = new ArrayList<>();
 
-        for (LocalDate currentWeekDate : currentWeekDates) {
-            List<HabitCompletion> habitCompletions = habitCompletionRepository.findAllByUserEmailAndDate(userEmail, currentWeekDate);
+        for (LocalDate currentWeekDate : dates) {
+            List<HabitCompletion> habitCompletions = habitCompletionRepository.findAllByUserEmailAndDate(email, currentWeekDate);
 
             if(!habitCompletions.isEmpty()){
                 habits.addAll(habitCompletions);
             }
         }
-
         HashMap<String, PieChartData> habitsMap = new HashMap<>();
         String notCompleted = "Not Completed";
         for (HabitCompletion habit : habits) {
@@ -97,11 +155,8 @@ public class CalendarDatesServiceImpl implements CalendarDatesService {
                 PieChartData pieChartData = habitsMap.get(habit.getHabit().getName());
                 pieChartData.setValue(habitsMap.get(habit.getHabit().getName()).getValue() + 1);
                 habitsMap.put(habit.getHabit().getName(), pieChartData);
-
             }
-
         }
-
         return habitsMap;
     }
 }

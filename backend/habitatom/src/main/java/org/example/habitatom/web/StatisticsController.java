@@ -32,18 +32,32 @@ public class StatisticsController {
         return this.calendarDatesService.getDates(userEmail);
     }
 
-    @GetMapping("/lineChart")
-    public List<Double> getDataForLineChart(@RequestHeader(value = "Authorization") String authorizationHeader) {
+    @GetMapping("/lineChart/weekly")
+    public List<Double> getDataForLineChartWeekly(@RequestHeader(value = "Authorization") String authorizationHeader) {
         String token = authorizationHeader.replace("Bearer ", "");
         String userEmail = jwtService.extractUserName(token);
-        return this.calendarDatesService.getDataForLineChart(userEmail);
+        return this.calendarDatesService.getDataForLineChartWeekly(userEmail);
     }
 
-    @GetMapping("/pieChart")
-    public HashMap<String, PieChartData> getDataForPieChart(@RequestHeader(value = "Authorization") String authorizationHeader) {
+    @GetMapping("/pieChart/weekly")
+    public HashMap<String, PieChartData> getDataForPieChartWeekly(@RequestHeader(value = "Authorization") String authorizationHeader) {
         String token = authorizationHeader.replace("Bearer ", "");
         String userEmail = jwtService.extractUserName(token);
-        return this.calendarDatesService.getDataForPieChart(userEmail);
+        return this.calendarDatesService.getDataForPieChartWeekly(userEmail);
+    }
+
+    @GetMapping("/lineChart/monthly")
+    public List<Double> getDataForLineChartMonthly(@RequestHeader(value = "Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        String userEmail = jwtService.extractUserName(token);
+        return this.calendarDatesService.getDataForLineChartMonthly(userEmail);
+    }
+
+    @GetMapping("/pieChart/monthly")
+    public HashMap<String, PieChartData> getDataForPieChartMonthly(@RequestHeader(value = "Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
+        String userEmail = jwtService.extractUserName(token);
+        return this.calendarDatesService.getDataForPieChartMonthly(userEmail);
     }
 
 }
