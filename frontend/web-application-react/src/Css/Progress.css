@@ -10,7 +10,7 @@
 }
 
 #weekly-text,
-#yearly-text {
+#monthly-text {
     position: absolute;
     color: white;
     font-weight: 600;
@@ -24,7 +24,7 @@
     user-select: none;
 }
 
-#yearly-text {
+#monthly-text {
     left: 50%;
 }
 

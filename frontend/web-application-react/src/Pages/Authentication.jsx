@@ -9,6 +9,16 @@ export const Authentication = () => {
 
   const navigate = useNavigate();
 
+  function setMessage(elementId, message, isSuccess) {
+    var messageElement = document.getElementById(elementId);
+    messageElement.innerHTML = message;
+    if (isSuccess) {
+        messageElement.style.color = "#0BC682";
+    } else {
+        messageElement.style.color = "rgb(219, 5, 5)";
+    }
+}
+
   const handleSignUp = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -21,11 +31,13 @@ export const Authentication = () => {
         password: formData.get('password'),
       }).then(
         (response) => {
-          setAuthHeader("");
-          navigate('/auth');
+          setMessage("signup-message", "Successfully signed up</br>Sign in to use the App", true)
+          document.getElementById("signup-username").value  = "";
+          document.getElementById("signup-email").value  = "";
+          document.getElementById("signup-password").value  = "";
         }).catch(
           (error) => {
-            console.log(error)
+            setMessage("signup-message", error.response.data, false)
           }
         );
   };
@@ -41,11 +53,17 @@ export const Authentication = () => {
         password: formData.get('password'),
       }).then(
         (response) => {
-          setAuthHeader(response.data.token);
-          navigate('/');
+          if (response.status === 200) {
+            setAuthHeader(response.data.token);
+            navigate('/');
+          }
         }).catch(
           (error) => {
-            console.log(error)
+            if (error.response.status === 403) {
+              setMessage("signin-message", "Invalid email or password", false)
+            } else {
+              console.log(error)
+            }
           }
         );
   };
@@ -56,15 +74,17 @@ export const Authentication = () => {
         <Components.SignUpContainer $signingIn={signIn}>
           <Components.Form onSubmit={handleSignUp}>
             <Components.Title>Create Account</Components.Title>
-            <Components.Input type="text" placeholder="Username" name="username" />
-            <Components.Input type="email" placeholder="Email" name="email" />
-            <Components.Input type="password" placeholder="Password" name="password" />
+            <div id='signup-message'></div>
+            <Components.Input type="text" placeholder="Username" name="username" id='signup-username'/>
+            <Components.Input type="email" placeholder="Email" name="email"  id='signup-email'/>
+            <Components.Input type="password" placeholder="Password" name="password"  id='signup-password'/>
             <Components.Button>Sign Up</Components.Button>
           </Components.Form>
         </Components.SignUpContainer>
         <Components.SignInContainer $signingIn={signIn}>
-          <Components.Form  onSubmit={handleSignIn}>
+          <Components.Form onSubmit={handleSignIn}>
             <Components.Title>Sign in</Components.Title>
+            <div id='signin-message'></div>
             <Components.Input type="email" placeholder="Email" name="email" />
             <Components.Input type="password" placeholder="Password" name="password" />
             <Components.Anchor href="#">Forgot your password?</Components.Anchor>
