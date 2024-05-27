@@ -26,7 +26,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+
     public JwtAuthenticationResponse signup(SignUpRequest request) {
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("Email is already taken");
+        }
+
         var user = AppUser
                 .builder()
                 .email(request.getEmail())

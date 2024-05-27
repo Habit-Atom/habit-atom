@@ -57,6 +57,7 @@ public class CompletionScheduler {
 
     private void addCalendarDates(LocalDate date) {
         List<AppUser> users = userRepository.findAll();
+        final double TOLERANCE = 0.0001;
 
         for (AppUser user : users) {
             List<HabitCompletion> habits = habitCompletionRepository.findAllByUserEmailAndDate(user.getEmail(), date);
@@ -65,24 +66,29 @@ public class CompletionScheduler {
             long completedHabits = habits.stream().filter(HabitCompletion::isCompleted).count();
             long completedTasks = tasks.stream().filter(TaskCompletion::isCompleted).count();
 
-            Double percent = (double) (completedHabits + completedTasks) /(habits.size() + tasks.size()) * 100;
+            int totalItems = habits.size() + tasks.size();
+            double percent = 0.0;
 
-            if(date.equals(LocalDate.now())) {
-                CalendarDates calendarDates = calendarDatesRepository.findByUserAndDate(user, date);
-                if(calendarDates != null) {
-                    if(calendarDates.getPercentOfCompletion() != percent){
-                        calendarDates.setPercentOfCompletion(percent);
-                        datesRepository.save(calendarDates);
-                    }
-                    continue;
-                }
+            if (totalItems > 0) {
+                percent = (double) (completedHabits + completedTasks) / totalItems * 100;
             }
-            CalendarDates calendarDate = new CalendarDates();
-            calendarDate.setDate(date);
-            calendarDate.setUser(user);
-            calendarDate.setPercentOfCompletion(percent);
-            datesRepository.save(calendarDate);
-        }
 
+            CalendarDates existingCalendarDate = calendarDatesRepository.findByUserAndDate(user, date);
+            if (existingCalendarDate != null) {
+                if (Math.abs(existingCalendarDate.getPercentOfCompletion() - percent) > TOLERANCE) {
+                    existingCalendarDate.setPercentOfCompletion(percent);
+                    datesRepository.save(existingCalendarDate);
+                }
+            } else {
+                CalendarDates calendarDate = new CalendarDates();
+                calendarDate.setDate(date);
+                calendarDate.setUser(user);
+                calendarDate.setPercentOfCompletion(percent);
+                datesRepository.save(calendarDate);
+            }
+        }
     }
+
+
+
 }

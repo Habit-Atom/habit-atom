@@ -22,13 +22,23 @@ public class AuthenticationController {
     private final JwtService jwtService;
 
     @PostMapping("/signup")
-    public JwtAuthenticationResponse signup(@RequestBody SignUpRequest request) {
-        return authenticationService.signup(request);
+    public ResponseEntity<?> signup(@RequestBody SignUpRequest request) {
+        try {
+            JwtAuthenticationResponse response = authenticationService.signup(request);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping("/signin")
-    public JwtAuthenticationResponse signin(@RequestBody SignInRequest request) {
-        return authenticationService.signin(request);
+    public ResponseEntity<?> signin(@RequestBody SignInRequest request) {
+        try {
+            JwtAuthenticationResponse response = authenticationService.signin(request);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PostMapping("/refreshToken")
