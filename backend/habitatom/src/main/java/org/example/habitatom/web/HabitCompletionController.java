@@ -29,7 +29,7 @@ public class HabitCompletionController {
     }
 
     @GetMapping("")
-    public List<HabitCompletion> getAllHabits(@RequestHeader(value = "Authorization") String authorizationHeader,@RequestParam LocalDate date) {
+    public List<HabitCompletion> getAllHabits(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestParam LocalDate date) {
         String token = authorizationHeader.replace("Bearer ", "");
         String userEmail = jwtService.extractUserName(token);
         return this.habitCompletionService.getAllHabits(userEmail, date);

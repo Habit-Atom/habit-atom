@@ -8,6 +8,7 @@ import org.example.habitatom.models.Task;
 import org.example.habitatom.models.enumeration.Day;
 import org.example.habitatom.repository.TaskRepository;
 import org.example.habitatom.repository.UserRepository;
+import org.example.habitatom.services.TaskCompletionService;
 import org.example.habitatom.services.TaskService;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,13 @@ import java.util.stream.Collectors;
 public class TaskServiceImpl implements TaskService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final TaskCompletionService taskCompletionService;
 
 
-    public TaskServiceImpl(UserRepository userRepository, TaskRepository taskRepository) {
+    public TaskServiceImpl(UserRepository userRepository, TaskRepository taskRepository, TaskCompletionService taskCompletionService) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
+        this.taskCompletionService = taskCompletionService;
     }
 
     @Override
@@ -62,5 +65,12 @@ public class TaskServiceImpl implements TaskService {
         task.setName(name);
         task.setUser(user);
         taskRepository.save(task);
+
+        LocalDate today = LocalDate.now();
+        for(int i = 0; i < 6; i++){
+            taskCompletionService.createFutureTaskCompletions(today.minusDays(5).plusDays(i));
+        }
+
+
     }
 }

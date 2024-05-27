@@ -4,14 +4,18 @@ package org.example.habitatom.services.impl;
 import org.example.habitatom.models.AppUser;
 import org.example.habitatom.models.DaysOfWeek;
 import org.example.habitatom.models.Habit;
+import org.example.habitatom.models.HabitCompletion;
 import org.example.habitatom.models.enumeration.Day;
 import org.example.habitatom.repository.DaysOfWeekRepository;
+import org.example.habitatom.repository.HabitCompletionRepository;
 import org.example.habitatom.repository.HabitRepository;
 import org.example.habitatom.repository.UserRepository;
+import org.example.habitatom.services.HabitCompletionService;
 import org.example.habitatom.services.HabitService;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,11 +26,13 @@ public class HabitServiceImpl implements HabitService {
     private final UserRepository userRepository;
     private final DaysOfWeekRepository daysOfWeekRepository;
     private final HabitRepository habitRepository;
+    private final HabitCompletionService habitCompletionService;
 
-    public HabitServiceImpl(UserRepository userRepository, DaysOfWeekRepository daysOfWeekRepository, HabitRepository habitRepository) {
+    public HabitServiceImpl(UserRepository userRepository, DaysOfWeekRepository daysOfWeekRepository, HabitRepository habitRepository, HabitCompletionService habitCompletionService) {
         this.userRepository = userRepository;
         this.daysOfWeekRepository = daysOfWeekRepository;
         this.habitRepository = habitRepository;
+        this.habitCompletionService = habitCompletionService;
     }
 
     @Override
@@ -46,5 +52,10 @@ public class HabitServiceImpl implements HabitService {
         habit.setName(name);
         habit.setUser(user);
         habitRepository.save(habit);
+
+        LocalDate today = LocalDate.now();
+        for(int i = 0; i < 6; i++){
+            habitCompletionService.createFutureHabitCompletions(today.minusDays(5).plusDays(i));
+        }
     }
 }

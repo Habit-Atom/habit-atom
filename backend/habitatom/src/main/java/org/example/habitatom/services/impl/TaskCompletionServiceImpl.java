@@ -33,11 +33,12 @@ public class TaskCompletionServiceImpl implements TaskCompletionService {
 
         for (ActiveDate d : dates) {
             Task task = d.getTask();
-            if (!taskCompletionRepository.existsByTaskAndDate(task, date)) {
+            if (!taskCompletionRepository.existsByTaskAndDate(task, futureDate)) {
                 TaskCompletion taskCompletion = new TaskCompletion();
                 taskCompletion.setTask(task);
-                taskCompletion.setDate(date);
+                taskCompletion.setDate(futureDate);
                 taskCompletion.setCompleted(false);
+                taskCompletionRepository.save(taskCompletion);
             }
         }
     }

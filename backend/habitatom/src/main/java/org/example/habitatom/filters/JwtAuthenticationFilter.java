@@ -37,9 +37,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final String requestURI = request.getRequestURI();
 
-
-
-        // Skip the filter for the refreshToken endpoint
         if ("/api/v1/refreshToken".equals(requestURI)) {
             filterChain.doFilter(request, response);
             return;

@@ -35,7 +35,7 @@ public class TaskCompletionController {
         return this.taskCompletionService.getAllTasks(userEmail, date);
     }
     @PostMapping("/updateStatus")
-    public ResponseEntity<Void> updateHabitStatus(@RequestBody UpdateRequest updateRequest) {
+    public ResponseEntity<Void> updateHabitStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody UpdateRequest updateRequest) {
         try {
             taskCompletionService.updateTaskStatus(updateRequest.getId());
             return ResponseEntity.ok().build();

@@ -1,9 +1,6 @@
 package org.example.habitatom.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,4 +18,6 @@ public class CalendarDates {
     private Long Id;
     private LocalDate date;
     private double percentOfCompletion;
+    @ManyToOne
+    private AppUser user;
 }

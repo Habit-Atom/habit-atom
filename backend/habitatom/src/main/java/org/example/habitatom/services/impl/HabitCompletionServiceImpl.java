@@ -32,17 +32,18 @@ public class HabitCompletionServiceImpl implements HabitCompletionService {
 
     @Transactional
     public void createFutureHabitCompletions(LocalDate date) {
-        DayOfWeek futureDayOfWeek = date.plusDays(5).getDayOfWeek();
+        LocalDate futureDate = date.plusDays(5);
+        DayOfWeek futureDayOfWeek = futureDate.getDayOfWeek();
         Day futureDay = DayUtils.transformToDay(futureDayOfWeek);
 
         List<DaysOfWeek> habitsForToday = daysOfWeekRepository.findByDay(futureDay);
 
         for (DaysOfWeek daysOfWeek : habitsForToday) {
             Habit habit = daysOfWeek.getHabit();
-            if (!habitCompletionRepository.existsByHabitAndDate(habit, date)) {
+            if (!habitCompletionRepository.existsByHabitAndDate(habit, futureDate)) {
                 HabitCompletion habitCompletion = new HabitCompletion();
                 habitCompletion.setHabit(habit);
-                habitCompletion.setDate(date);
+                habitCompletion.setDate(futureDate);
                 habitCompletion.setCompleted(false);
                 habitCompletionRepository.save(habitCompletion);
             }

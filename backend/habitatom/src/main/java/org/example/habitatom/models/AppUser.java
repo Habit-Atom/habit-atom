@@ -29,6 +29,9 @@ public class AppUser implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Task> tasks;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<CalendarDates> calendarDates;
 
     @Override
     public String getUsername() {
