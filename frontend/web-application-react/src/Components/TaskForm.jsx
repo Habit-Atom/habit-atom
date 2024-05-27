@@ -11,14 +11,14 @@ const durations = [
     { value: '2 hours', label: '2 hours' }
 ];
 
-const colors = [
-    "orange",
-    "amber",
-    "lime",
-    "teal",
-    "blue",
-    "indigo"
-];
+const colors = {
+    "orange": "#F39C12",
+    "amber": "#F4D03F",
+    "lime": "#2ECC71",
+    "teal": "#48C9B0",
+    "blue": "#3498DB",
+    "red": "#E74C3C"
+};
 
 export const TaskForm = () => {
 
@@ -62,7 +62,7 @@ export const TaskForm = () => {
 
         request("POST", "/api/tasks/add", requestData)
             .then((response) => {
-
+                window.location.reload();    
             })
             .catch((error) => {
                 console.log(error);
@@ -103,9 +103,9 @@ export const TaskForm = () => {
                     <div className='form-block'>
                         <label htmlFor="color">Choose color</label>
                         <div className="color-options">
-                            {colors.map(color => (
-                                <label key={color} className={color}>
-                                    <input type="radio" name="color" value={color} />
+                            {Object.entries(colors).map(([name, hex]) => (
+                                <label key={name} className={name}>
+                                    <input type="radio" name="color" value={hex} />
                                     <div className="button"><span></span></div>
                                 </label>
                             ))}

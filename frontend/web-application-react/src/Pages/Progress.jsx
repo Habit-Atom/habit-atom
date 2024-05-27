@@ -1,19 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../Css/Progress.css";
 import { PieChart, LineChart } from '@mui/x-charts';
+import {request} from "../Helpers/axios_helper"
 
 export const Progress = () => {
     const [toggle, setToggle] = useState(false);
+    const [lineData, setLineData] = useState([]);
+    const [pieData, setPieData] = useState([]);
     let xLabels = [];
-    let uData = [];
 
     if (toggle) {
         xLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        uData = [20, 55, 30, 85, 15, 50, 70, 20, 55, 30, 85, 15];
     } else {
         xLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        uData = [20, 55, 30, 85, 15, 50, 70];
     }
+
+
+
+    const requestDataForLineChart = () => {
+        request(
+          "GET",
+          "/api/statistics/lineChart",
+        ).then(
+          (response) => {
+            setLineData(response.data);
+          }).catch(
+            (error) => {
+              console.log(error);
+            }
+          );
+      };
+
+      const requestDataForPieChart = () => {
+        request(
+          "GET",
+          "/api/statistics/pieChart",
+        ).then(
+          (response) => {
+            const data = response.data;
+            const pieChartData = Object.entries(data).map(([key, value]) => ({ label: key, value: value.value, color: value.color }));
+            setPieData(pieChartData);
+          }).catch(
+            (error) => {
+              console.log(error);
+            }
+          );
+      };
+    
+      useEffect(() => {
+        requestDataForLineChart();
+        requestDataForPieChart();
+      }, []);
 
     return (
         <main id='progress'>
@@ -37,7 +74,7 @@ export const Progress = () => {
                     width={600}
                     height={400}
                     series={[{
-                        data: uData,
+                        data: lineData,
                         area: true,
                         showMark: false,
                         color: '#0BC682',
@@ -47,15 +84,11 @@ export const Progress = () => {
                     yAxis={[{ min: 0, max: 100 }]}
                 />
                 <PieChart
-                    width={450}
+                    width={500}
                     height={350}
                     series={[
                         {
-                            data: [
-                                { id: 0, value: 10, color: "#FFE29C", label: "Studying" },
-                                { id: 1, value: 15, color: "#FFA4A4", label: "Cycling" },
-                                { id: 2, value: 20, color: "#A4C8FF", label: "Reading" },
-                            ],
+                            data: pieData,
                             innerRadius: 45,
                             outerRadius: 150,
                             paddingAngle: 3,

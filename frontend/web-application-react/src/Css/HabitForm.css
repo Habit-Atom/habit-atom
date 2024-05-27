@@ -29,27 +29,27 @@
 }
 
 .orange .button span {
-    background: #FF5722;
+    background: #F39C12;
 }
 
 .amber .button span {
-    background: #FFC107;
+    background: #F4D03F;
 }
 
 .lime .button span {
-    background: #8BC34A;
+    background: #2ECC71;
 }
 
 .teal .button span {
-    background: #009688;
+    background: #48C9B0;
 }
 
 .blue .button span {
-    background: #2196F3;
+    background: #3498DB;
 }
 
-.indigo .button span {
-    background: #3F51B5;
+.red .button span {
+    background: #E74C3C;
 }
 
 
@@ -58,7 +58,7 @@
 .lime input:checked+.button span,
 .teal input:checked+.button span,
 .blue input:checked+.button span,
-.indigo input:checked+.button span {
+.red input:checked+.button span {
     border: 2px solid #444;
 }
 
@@ -67,7 +67,7 @@
 .lime input:not(:checked)+.button span,
 .teal input:not(:checked)+.button span,
 .blue input:not(:checked)+.button span,
-.indigo input:not(:checked)+.button span {
+.red input:not(:checked)+.button span {
     border: none;
 }
 
@@ -104,14 +104,6 @@
 .color-options{
     margin-top: 15px;
 }
-
-
-
-
-
-
-
-
 
   .round-checkbox-label {
     display: flex;

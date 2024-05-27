@@ -22,12 +22,24 @@ export const Dashboard = () => {
   };
 
   const formatDateToYYYYMMDD = (date) => {
-    return date.toISOString().split('T')[0];
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const isToday = (date) => {
+    const today = new Date();
+    const givenDate = new Date(date);
+    return (
+      today.getFullYear() === givenDate.getFullYear() &&
+      today.getMonth() === givenDate.getMonth() &&
+      today.getDate() === givenDate.getDate()
+    );
   };
 
   const fetchHabitsAndTasks = (date) => {
     const formattedDate = formatDateToYYYYMMDD(date);
-    
     request("GET", `/api/habits?date=${formattedDate}`)
       .then((response) => {
         setHabits(response.data);
@@ -102,7 +114,13 @@ export const Dashboard = () => {
           </div>
           <div className='inner-container'>
             {habits.map((d) => (
-              <Habit key={d.id} id={d.id} habit={d.habit} completed={d.completed} />
+              <Habit 
+                key={d.id} 
+                id={d.id} 
+                habit={d.habit} 
+                completed={d.completed} 
+                disabled={!isToday(d.date)} 
+              />
             ))}
           </div>
         </div>
@@ -113,7 +131,13 @@ export const Dashboard = () => {
           </div>
           <div className='inner-container'>
             {tasks.map((d) => (
-              <Task key={d.id} id={d.id} task={d.task} completed={d.completed} />
+              <Task 
+                key={d.id} 
+                id={d.id} 
+                task={d.task} 
+                completed={d.completed} 
+                disabled={!isToday(d.date)} 
+              />
             ))}
           </div>
         </div>

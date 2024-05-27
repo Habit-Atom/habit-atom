@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "../Css/Task.css"
 import { request } from '../Helpers/axios_helper'
 
-export const Task = ({id, task, completed}) => {
+export const Task = ({id, task, completed, disabled}) => {
   const name = task.name.toLowerCase().replace(/\s+/g, '_');
   const [isCompleted, setIsCompleted] = useState(completed);
 
@@ -46,6 +46,7 @@ export const Task = ({id, task, completed}) => {
           id={`checkbox-${name}`}
           defaultChecked={isCompleted}
           onChange={handleCheckboxClick}
+          disabled={disabled}
         />
         <label htmlFor={`checkbox-${name}`} style={roundLabelStyle}></label>
       </div>

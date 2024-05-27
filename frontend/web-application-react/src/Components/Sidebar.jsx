@@ -8,11 +8,7 @@ export const Sidebar = () => {
     
     return (
         <aside id='sidebar'>
-            <div>
-                <div id="hamburger-menu-container">
-                    <FontAwesomeIcon icon={faBars} size="xl"/>
-                </div>
-                <div>
+                <div id="nav-bar-buttons-container">
                     <NavLink to="/" className="page-button">
                         <FontAwesomeIcon icon={faTableColumns} size="xl"/>
                         <p>Dashboard</p>
@@ -36,7 +32,6 @@ export const Sidebar = () => {
 
 
                 </div>
-            </div>
 
             <div id="logo-container">
                 <img src="/logo2.png" alt="HabitAtom" />

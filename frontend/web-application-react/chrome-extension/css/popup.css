@@ -42,7 +42,6 @@ body{
   }
   
   .round label {
-    background-color: #fff;
     border-radius: 50%;
     cursor: pointer;
     height: 28px;

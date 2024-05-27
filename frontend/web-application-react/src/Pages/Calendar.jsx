@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import "../Css/Calendar.css";
 import { ProgressBar } from '../Components/ProgressBar';
+import { request } from "../Helpers/axios_helper";
 
 const localizer = momentLocalizer(moment);
 
@@ -16,37 +17,47 @@ const dayPropGetter = (date) => {
   return isCurrentDay(date) ? { className: 'current-day-cell' } : {};
 };
 
-const eventsFromDatabase = [
-  { date: new Date('2024-05-01'), percentage: 30 },
-  { date: new Date('2024-05-02'), percentage: 20 },
-  { date: new Date('2024-05-03'), percentage: 40 },
-  { date: new Date('2024-05-04'), percentage: 45 },
-  { date: new Date('2024-05-05'), percentage: 56 },
-  { date: new Date('2024-05-06'), percentage: 5 },
-  { date: new Date('2024-05-07'), percentage: 33 },
-  { date: new Date('2024-05-08'), percentage: 99 },
-];
-
-
 const generateEventsFromDatabase = (events) => {
   return events.map(event => ({
-    title: <ProgressBar percentage={event.percentage} location={"calendar"} />,
-    start: event.date,
-    end: event.date,
+    title: <ProgressBar percentage={Math.floor(event.percentOfCompletion)} location={"calendar"} />,
+    start: new Date(event.date),
+    end: new Date(event.date),
   }));
 };
 
-const events = generateEventsFromDatabase(eventsFromDatabase);
+export const Calendar = () => {
+  const [eventsFromDatabase, setEventsFromDatabase] = useState([]);
 
-export const Calendar = () => (
-  <div id="calendar">
-    <BigCalendar
-      localizer={localizer}
-      events={events}
-      startAccessor="start"
-      endAccessor="end"
-      style={{ height: '90%', width: '100%' }}
-      dayPropGetter={dayPropGetter}
-    />
-  </div>
-);
+  const requestCalendarDates = () => {
+    request(
+      "GET",
+      "/api/statistics/dates",
+    ).then(
+      (response) => {
+        setEventsFromDatabase(response.data);
+      }).catch(
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  useEffect(() => {
+    requestCalendarDates();
+  }, []);
+
+  const events = generateEventsFromDatabase(eventsFromDatabase);
+
+  return (
+    <div id="calendar">
+      <BigCalendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: '90%', width: '100%' }}
+        dayPropGetter={dayPropGetter}
+      />
+    </div>
+  );
+};

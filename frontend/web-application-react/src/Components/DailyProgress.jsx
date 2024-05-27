@@ -9,7 +9,7 @@ export const DailyProgress = ({ habits, tasks }) => {
   const completedHabits = habits.filter(habit => habit.completed).length;
   const completedTasks = tasks.filter(task => task.completed).length;
 
-  const percentage = Math.round(((completedHabits + completedTasks) / (totalHabits + totalTasks)) * 100);
+  const percentage = Math.floor(((completedHabits + completedTasks) / (totalHabits + totalTasks)) * 100);
 
   return (
     <div id='daily-progress-container'>
