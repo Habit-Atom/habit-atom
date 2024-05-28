@@ -11,12 +11,18 @@ const durations = [
 ];
 
 const colors = {
-    "orange": "#F39C12",
     "amber": "#F4D03F",
+    "orange": "#F39C12",
+    "light-pink": "#FFE6E6",
+    "pink": "#FF70AB",
+    "red": "#E74C3C",
+    "light-green": "#9DDE8B",
+    "vomit-green": "#D2D180",
     "lime": "#2ECC71",
     "teal": "#48C9B0",
     "blue": "#3498DB",
-    "red": "#E74C3C"
+    "purple": "#7469B6",
+    "brown": "#A67B5B",
 };
 
 const daysLeft = [

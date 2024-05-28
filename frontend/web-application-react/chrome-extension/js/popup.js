@@ -1,3 +1,6 @@
+var content = document.getElementById("content")
+var buttonContainer = document.getElementById("popup-signin-button")
+
 function sendRequest(endpoint, type, options = {}) {
   chrome.storage.local.get(['jwtToken'], function(result) {
     const token = result.jwtToken;
@@ -17,6 +20,9 @@ function sendRequest(endpoint, type, options = {}) {
           return response.json();
         })
         .then(data => {
+          content.style.display = "block";
+          buttonContainer.style.display = "none";
+
           if (type === "habit") {
             display(data, document.getElementById('habits-container'), type);
           } else if (type === "task") {
@@ -27,7 +33,14 @@ function sendRequest(endpoint, type, options = {}) {
         })
         .catch(error => console.error('Error:', error));
     } else {
-      console.error('No token found');
+        content.style.display = "none";
+        buttonContainer.style.display = "flex";
+        buttonContainer.innerHTML = ''; 
+        const link = document.createElement('a');
+        link.href = 'http://localhost:3000/auth';
+        link.textContent = 'Sign In';
+        link.target = "_blank"
+        buttonContainer.appendChild(link);
     }
   });
 }
@@ -84,6 +97,15 @@ let allStyles = [];
 
 function display(data, container, type) {
   container.innerHTML = '';
+
+  if (data.length === 0) {
+    if (type === 'habit') {
+      container.innerHTML = '<p>No habits for today</p>';
+    } else if (type === 'task') {
+      container.innerHTML = '<p>No tasks for today</p>';
+    }
+    return;
+  }
 
   const styles = data.map(d => createStyles(d, type)).join('');
   allStyles.push(styles);

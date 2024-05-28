@@ -91,7 +91,7 @@ export const Progress = () => {
           yAxis={[{ min: 0, max: 100 }]}
         />
         <PieChart
-          width={500}
+          width={600}
           height={350}
           series={[{
             data: pieData,
