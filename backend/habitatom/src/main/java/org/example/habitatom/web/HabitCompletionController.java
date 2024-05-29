@@ -1,7 +1,7 @@
 package org.example.habitatom.web;
 
 import org.example.habitatom.dto.AddHabitRequest;
-import org.example.habitatom.dto.UpdateRequest;
+import org.example.habitatom.dto.IdRequest;
 import org.example.habitatom.models.HabitCompletion;
 import org.example.habitatom.services.HabitCompletionService;
 import org.example.habitatom.services.HabitService;
@@ -35,9 +35,19 @@ public class HabitCompletionController {
         return this.habitCompletionService.getAllHabits(userEmail, date);
     }
     @PostMapping("/updateStatus")
-    public ResponseEntity<Void> updateHabitStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody UpdateRequest updateRequest) {
+    public ResponseEntity<Void> updateHabitStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody IdRequest idRequest) {
         try {
-            habitCompletionService.updateHabitStatus(updateRequest.getId());
+            habitCompletionService.updateHabitStatus(idRequest.getId());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteHabit(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody IdRequest idRequest) {
+        try {
+            habitService.deleteHabit(idRequest.getId());
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface HabitService {
     public void addHabit(String name, String duration, String color, List<String> days, String userEmail);
+
+    void deleteHabit(Long id);
 }

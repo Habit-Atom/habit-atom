@@ -27,12 +27,14 @@ public class HabitServiceImpl implements HabitService {
     private final DaysOfWeekRepository daysOfWeekRepository;
     private final HabitRepository habitRepository;
     private final HabitCompletionService habitCompletionService;
+    private final HabitCompletionRepository habitCompletionRepository;
 
-    public HabitServiceImpl(UserRepository userRepository, DaysOfWeekRepository daysOfWeekRepository, HabitRepository habitRepository, HabitCompletionService habitCompletionService) {
+    public HabitServiceImpl(UserRepository userRepository, DaysOfWeekRepository daysOfWeekRepository, HabitRepository habitRepository, HabitCompletionService habitCompletionService, HabitCompletionRepository habitCompletionRepository) {
         this.userRepository = userRepository;
         this.daysOfWeekRepository = daysOfWeekRepository;
         this.habitRepository = habitRepository;
         this.habitCompletionService = habitCompletionService;
+        this.habitCompletionRepository = habitCompletionRepository;
     }
 
     @Override
@@ -57,5 +59,19 @@ public class HabitServiceImpl implements HabitService {
         for(int i = 0; i < 6; i++){
             habitCompletionService.createFutureHabitCompletions(today.minusDays(5).plusDays(i));
         }
+    }
+
+    @Override
+    public void deleteHabit(Long id) {
+        Habit habit = habitRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
+        List<DaysOfWeek> daysOfWeeks = daysOfWeekRepository.findByHabit(habit);
+        daysOfWeekRepository.deleteAll(daysOfWeeks);
+        List<HabitCompletion> habitCompletions = habitCompletionRepository.findAllByHabit(habit);
+        LocalDate today = LocalDate.now();
+        habitCompletionRepository.deleteAll(habitCompletions.stream()
+                .filter(hc -> hc.getDate().equals(today) || hc.getDate().isAfter(today))
+                .toList());
+
     }
 }

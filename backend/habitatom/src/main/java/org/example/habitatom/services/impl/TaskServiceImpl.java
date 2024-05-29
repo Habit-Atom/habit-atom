@@ -1,11 +1,10 @@
 package org.example.habitatom.services.impl;
 
 
-import org.example.habitatom.models.ActiveDate;
-import org.example.habitatom.models.AppUser;
-import org.example.habitatom.models.DaysOfWeek;
-import org.example.habitatom.models.Task;
+import org.example.habitatom.models.*;
 import org.example.habitatom.models.enumeration.Day;
+import org.example.habitatom.repository.ActiveDateRepository;
+import org.example.habitatom.repository.TaskCompletionRepository;
 import org.example.habitatom.repository.TaskRepository;
 import org.example.habitatom.repository.UserRepository;
 import org.example.habitatom.services.TaskCompletionService;
@@ -27,12 +26,16 @@ public class TaskServiceImpl implements TaskService {
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
     private final TaskCompletionService taskCompletionService;
+    private final ActiveDateRepository activeDateRepository;
+    private final TaskCompletionRepository taskCompletionRepository;
 
 
-    public TaskServiceImpl(UserRepository userRepository, TaskRepository taskRepository, TaskCompletionService taskCompletionService) {
+    public TaskServiceImpl(UserRepository userRepository, TaskRepository taskRepository, TaskCompletionService taskCompletionService, ActiveDateRepository activeDateRepository, TaskCompletionRepository taskCompletionRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
         this.taskCompletionService = taskCompletionService;
+        this.activeDateRepository = activeDateRepository;
+        this.taskCompletionRepository = taskCompletionRepository;
     }
 
     @Override
@@ -72,5 +75,18 @@ public class TaskServiceImpl implements TaskService {
         }
 
 
+    }
+
+    @Override
+    public void deleteTask(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
+        List<ActiveDate> activeDates = activeDateRepository.findByTask(task);
+        activeDateRepository.deleteAll(activeDates);
+        List<TaskCompletion> taskCompletions = taskCompletionRepository.findAllByTask(task);
+        LocalDate today = LocalDate.now();
+        taskCompletionRepository.deleteAll(taskCompletions.stream()
+                .filter(tc -> tc.getDate().equals(today) || tc.getDate().isAfter(today))
+                .toList());
     }
 }

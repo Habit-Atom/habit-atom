@@ -2,7 +2,7 @@ package org.example.habitatom.web;
 
 
 import org.example.habitatom.dto.AddTaskRequest;
-import org.example.habitatom.dto.UpdateRequest;
+import org.example.habitatom.dto.IdRequest;
 import org.example.habitatom.models.TaskCompletion;
 import org.example.habitatom.services.JwtService;
 import org.example.habitatom.services.TaskCompletionService;
@@ -35,14 +35,25 @@ public class TaskCompletionController {
         return this.taskCompletionService.getAllTasks(userEmail, date);
     }
     @PostMapping("/updateStatus")
-    public ResponseEntity<Void> updateHabitStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody UpdateRequest updateRequest) {
+    public ResponseEntity<Void> updateHabitStatus(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody IdRequest idRequest) {
         try {
-            taskCompletionService.updateTaskStatus(updateRequest.getId());
+            taskCompletionService.updateTaskStatus(idRequest.getId());
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<Void> deleteTask(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody IdRequest idRequest) {
+        try {
+            taskService.deleteTask(idRequest.getId());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
     @PostMapping("/add")
     public void addTask(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody AddTaskRequest addTaskRequest){
         String token = authorizationHeader.replace("Bearer ", "");

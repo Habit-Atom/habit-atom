@@ -17,4 +17,6 @@ public interface TaskCompletionRepository extends JpaRepository<TaskCompletion, 
 
     @Query("SELECT tc FROM TaskCompletion tc WHERE tc.task.user.email = :email and tc.date = :date ")
     List<TaskCompletion> findAllByUserEmailAndDate(@Param("email") String email, @Param("date") LocalDate date);
+
+    List<TaskCompletion> findAllByTask(Task task);
 }
