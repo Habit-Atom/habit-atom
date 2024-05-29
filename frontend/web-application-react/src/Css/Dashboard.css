@@ -27,6 +27,7 @@
 .outer-container {
     width: 40%;
     padding: 0px 70px;
+    margin-bottom: 20px;
 }
 
 .header {
@@ -49,3 +50,34 @@
     font-size: 16px;
     font-weight: 600;
 }
+
+.container-flex{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 80px;
+  }
+
+  .delete-button-container{
+    height: 63px;
+    width: 63px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: #BBB;
+    transition: all ease 0.35s;
+    font-size: 22px;
+    border: 1px solid #BBB;
+    margin-left: 10px;
+    padding: 5px;
+  }
+
+
+  .delete-button-container:hover{
+    color: white;
+    background-color: #d0443c;
+    border: 1px solid #d0443c;
+  }

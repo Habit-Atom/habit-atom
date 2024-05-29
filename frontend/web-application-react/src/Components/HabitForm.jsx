@@ -195,7 +195,7 @@ export const HabitForm = () => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className='add-button-container'>
                 <input className="addHabitButton" type="submit" value={"Add Habit"} />
             </div>
         </form>

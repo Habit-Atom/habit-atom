@@ -129,22 +129,22 @@ function createStyles(data, type) {
   if (type === "habit") {
     const name = data.habit.name.toLowerCase().replace(/\s+/g, '_');
     return `
-      .round input[type="checkbox"]:checked + label[for="checkbox-${name}"] {
+      .round input[type="checkbox"]:checked + label[for="checkbox-${name}-${data.habit.id}"] {
         background-color: ${data.habit.color};
         border-color: ${data.habit.color};
       }
-      .round label[for="checkbox-${name}"] {
+      .round label[for="checkbox-${name}-${data.habit.id}"] {
         border: 3px solid ${data.habit.color};
       }
     `;
   } else if (type === "task") {
     const name = data.task.name.toLowerCase().replace(/\s+/g, '_');
     return `
-      .round input[type="checkbox"]:checked + label[for="checkbox-${name}"] {
+      .round input[type="checkbox"]:checked + label[for="checkbox-${name}-${data.task.id}"] {
         background-color: ${data.task.color};
         border-color: ${data.task.color};
       }
-      .round label[for="checkbox-${name}"] {
+      .round label[for="checkbox-${name}-${data.task.id}"] {
         border: 3px solid ${data.task.color};
       }
     `;
@@ -169,8 +169,8 @@ function createHtml(data, type) {
             <div class="habit-name" style="color: #444">${data.habit.name}</div>
           </div>
           <div class="round">
-            <input type="checkbox" id="checkbox-${name}" ${data.completed ? 'checked' : ''} data-id="${data.id}" data-type="habit" />
-            <label for="checkbox-${name}"></label>
+            <input type="checkbox" id="checkbox-${name}-${data.habit.id}" ${data.completed ? 'checked' : ''} data-id="${data.id}" data-type="habit" />
+            <label for="checkbox-${name}-${data.habit.id}"></label>
           </div>
         </div>
       </div>
@@ -184,8 +184,8 @@ function createHtml(data, type) {
           <div class="task-name" style="color: ${data.task.color}">${data.task.name}</div>
         </div>
         <div class="round">
-          <input type="checkbox" id="checkbox-${name}" ${data.completed ? 'checked' : ''} data-id="${data.id}" data-type="task" />
-          <label for="checkbox-${name}"></label>
+          <input type="checkbox" id="checkbox-${name}-${data.task.id}" ${data.completed ? 'checked' : ''} data-id="${data.id}" data-type="task" />
+          <label for="checkbox-${name}-${data.task.id}"></label>
         </div>
       </div>
     `;

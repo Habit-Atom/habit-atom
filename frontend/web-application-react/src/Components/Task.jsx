@@ -43,12 +43,12 @@ export const Task = ({id, task, completed, disabled}) => {
       <div className="round">
         <input
           type="checkbox"
-          id={`checkbox-${name}`}
+          id={`checkbox-${name}-${task.id}`}
           defaultChecked={isCompleted}
           onChange={handleCheckboxClick}
           disabled={disabled}
         />
-        <label htmlFor={`checkbox-${name}`} style={roundLabelStyle}></label>
+        <label htmlFor={`checkbox-${name}-${task.id}`} style={roundLabelStyle}></label>
       </div>
     </div>
   );

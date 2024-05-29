@@ -6,6 +6,8 @@ import { CalendarElement } from '../Components/CalendarElement';
 import { request } from '../Helpers/axios_helper';
 import { Habit } from '../Components/Habit';
 import { Task } from '../Components/Task';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan} from '@fortawesome/free-solid-svg-icons'
 
 export const Dashboard = () => {
   const [date, setDate] = useState(new Date());
@@ -75,7 +77,7 @@ export const Dashboard = () => {
 
   const renderCalendarElements = () => {
     const elements = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = -1; i < 6; i++) {
       const dateForElement = addDays(date, i);
       elements.push(
         <CalendarElement
@@ -97,6 +99,28 @@ export const Dashboard = () => {
     navigate('/create', { state: { toggle: true } });
   };
 
+  const handleDeleteHabit = async (id) => {
+    try {
+      await request('POST', '/api/habits/delete', {
+        id: id,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating habit status:', error);
+    }
+  };
+
+  const handleDeleteTask = async (id) => {
+    try {
+      await request('POST', '/api/tasks/delete', {
+        id: id,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.error('Error updating habit status:', error);
+    }
+  };
+
   return (
     <main>
       <h1 id="page-title">Dashboard</h1>
@@ -114,13 +138,17 @@ export const Dashboard = () => {
           </div>
           <div className='inner-container'>
             {habits.map((d) => (
+              <div className='container-flex' key={d.id} >
               <Habit 
-                key={d.id} 
                 id={d.id} 
                 habit={d.habit} 
                 completed={d.completed} 
                 disabled={!isToday(d.date)} 
               />
+              <div className='delete-button-container' onClick={() => handleDeleteHabit(d.habit.id)}>
+                <a className='delete-button'><FontAwesomeIcon icon={faTrashCan} /></a>
+              </div>
+              </div>
             ))}
           </div>
         </div>
@@ -131,13 +159,17 @@ export const Dashboard = () => {
           </div>
           <div className='inner-container'>
             {tasks.map((d) => (
+              <div className='container-flex' key={d.id} >
               <Task 
-                key={d.id} 
                 id={d.id} 
                 task={d.task} 
                 completed={d.completed} 
                 disabled={!isToday(d.date)} 
               />
+              <div className='delete-button-container'  onClick={() => handleDeleteTask(d.task.id)}>
+                <a className='delete-button'><FontAwesomeIcon icon={faTrashCan} /></a>
+              </div>
+              </div>
             ))}
           </div>
         </div>

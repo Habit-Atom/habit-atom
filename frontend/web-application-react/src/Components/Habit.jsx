@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../Css/Habit.css';
 import { request } from '../Helpers/axios_helper'
 
+
 export const Habit = ({id, habit, completed, disabled }) => {
   const name = habit.name.toLowerCase().replace(/\s+/g, '_');
   const [isCompleted, setIsCompleted] = useState(completed);
@@ -52,12 +53,12 @@ export const Habit = ({id, habit, completed, disabled }) => {
       <div className="round">
         <input
           type="checkbox"
-          id={`checkbox-${name}`}
+          id={`checkbox-${name}-${habit.id}`}
           defaultChecked={isCompleted}
           onChange={handleCheckboxClick}
           disabled={disabled}
         />
-        <label htmlFor={`checkbox-${name}`} style={roundLabelStyle}></label>
+        <label htmlFor={`checkbox-${name}-${habit.id}`} style={roundLabelStyle}></label>
       </div>
     </div>
   );

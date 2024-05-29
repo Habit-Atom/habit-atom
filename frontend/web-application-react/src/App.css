@@ -1,6 +1,12 @@
 .App {
   text-align: center;
   display: flex;
+  overflow-x: hidden;
+  background-image: url('../public/HabitAtomBackground.png');
+  background-size:contain;
+  background-position: start; 
+  background-repeat: no-repeat; 
+  
 }
 
 .App-logo {

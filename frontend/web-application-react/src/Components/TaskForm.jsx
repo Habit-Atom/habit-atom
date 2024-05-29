@@ -127,7 +127,7 @@ export const TaskForm = () => {
                     />
                 </div>
             </div>
-            <div>
+            <div className='add-button-container'>
                 <input className="addTaskButton" type="submit" value={"Add Task"} />
             </div>
         </form>
