@@ -1,0 +1,26 @@
+.habit{
+  border-radius: 15px;
+    background-color: white;
+}
+
+.habit-color-container{
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.habit-details-container{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.habit-name{
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+

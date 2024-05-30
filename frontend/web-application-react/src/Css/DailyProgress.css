@@ -1,0 +1,49 @@
+#daily-progress-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 180px;
+    width: 400px;
+    background-color: #EEFFF9;
+    border-radius: 15px;
+    margin-left: 50px;
+}
+
+#daily-progress-text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    height: 100%;
+}
+
+#text{
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#display-count{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.count-outer-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.count-outer-container p{
+    font-size: 12px;
+    margin: 5px 0;
+}
+
+.count-inner-container{
+    font-size: 24px;
+}
+
+#habits-done, #tasks-done{
+    color: #11C785;
+}

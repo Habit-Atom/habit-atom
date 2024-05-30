@@ -1,0 +1,106 @@
+body{
+    width: 300px;
+    height: 100%;
+}
+
+#popup-container{
+    padding: 10px 20px;
+}
+#background{
+    position: absolute;
+    opacity: 0.6;
+    top: 140px;
+    left: 70px;
+    z-index: -100;
+}
+#logo-container{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-decoration: none;
+    margin-top: 10px;
+}
+#logo{
+    width: 50px;
+}
+
+#logo-container h1{
+    color: #26926a;
+    font-size: 32px;
+    margin: 0 0 0 15px;
+}
+
+#popup-habits-container p, #popup-tasks-container p{
+    font-size: 20px;
+    margin: 10px 0;;
+}
+
+.round {
+    position: relative;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .round label {
+    border-radius: 50%;
+    cursor: pointer;
+    height: 28px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 28px;
+  }
+  
+  .round label:after {
+    border: 2px solid #fff;
+    border-top: none;
+    border-right: none;
+    content: "";
+    height: 6px;
+    left: 7px;
+    opacity: 0;
+    position: absolute;
+    top: 8px;
+    transform: rotate(-45deg);
+    width: 12px;
+  }
+  
+  .round input[type="checkbox"] {
+    visibility: hidden;
+    
+  }
+  
+  .round input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+  }
+
+  #popup-signin-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #popup-signin-button a{
+    margin-top: 20px;
+    text-decoration: none;
+    text-align: center;
+    background-color: #0BC682;
+    width: 80%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  #habits-container p , #tasks-container p{
+    font-style: italic;
+    font-size: 14px;
+    
+  }

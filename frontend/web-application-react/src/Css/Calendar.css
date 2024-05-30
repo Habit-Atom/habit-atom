@@ -1,0 +1,79 @@
+#calendar {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10%;
+}
+
+.rbc-month-view {
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.rbc-header {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(217, 217, 217, 0.3);
+    border: 1px solid #E8E8E8;
+    color: #4A4848;
+}
+
+.rbc-btn-group button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: 14px;
+
+}
+
+.rbc-btn-group button:nth-child(1) {
+    background-color: #0BC682;
+    color: white;
+}
+
+.rbc-toolbar .rbc-btn-group:nth-child(3) {
+    visibility: hidden;
+}
+
+.rbc-toolbar-label {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.rbc-day-bg {
+    background-color: rgba(217, 217, 217, 0.3);
+    border: 1px solid #E8E8E8;
+}
+
+.current-day-cell {
+    background-color: rgba(8, 197, 128, 0.3);
+}
+
+.rbc-date-cell button {
+    color: #7B7B7B;
+    font-weight: 600;
+}
+
+.rbc-off-range button {
+    color: #BBBBBB;
+}
+
+.rbc-event {
+    background-color: transparent !important;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.rbc-row-segment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

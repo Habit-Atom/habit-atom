@@ -1,0 +1,233 @@
+.color-options input {
+    display: none;
+}
+
+.button {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.button span {
+    display: block;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background: #eeeeee;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.orange .button span {
+    background: #F39C12;
+}
+
+.amber .button span {
+    background: #F4D03F;
+}
+
+.lime .button span {
+    background: #2ECC71;
+}
+
+.teal .button span {
+    background: #48C9B0;
+}
+
+.blue .button span {
+    background: #3498DB;
+}
+.red .button span {
+    background: #E74C3C;
+}
+.light-pink .button span {
+    background: #FFE6E6;
+}
+.pink .button span {
+  background: #FF70AB;
+}
+.light-green .button span {
+  background: #9DDE8B;
+}
+.vomit-green .button span {
+  background: #D2D180;
+}
+.purple .button span {
+  background: #7469B6;
+}
+.brown .button span {
+  background: #A67B5B;
+}
+
+
+.orange input:checked+.button span,
+.amber input:checked+.button span,
+.lime input:checked+.button span,
+.teal input:checked+.button span,
+.blue input:checked+.button span,
+.red input:checked+.button span,
+.light-pink input:checked+.button span,
+.pink input:checked+.button span,
+.light-green input:checked+.button span,
+.vomit-green input:checked+.button span,
+.purple input:checked+.button span,
+.brown input:checked+.button span {
+    border: 2px solid #444;
+}
+
+.orange input:not(:checked)+.button span,
+.amber input:not(:checked)+.button span,
+.lime input:not(:checked)+.button span,
+.teal input:not(:checked)+.button span,
+.blue input:not(:checked)+.button span,
+.red input:not(:checked)+.button span,
+.light-pink input:not(:checked)+.button span,
+.pink input:not(:checked)+.button span,
+.light-green input:not(:checked)+.button span,
+.vomit-green input:not(:checked)+.button span,
+.purple input:not(:checked)+.button span,
+.brown input:not(:checked)+.button span {
+    border: none;
+}
+
+.form-container input[type='text'],.form-container select{
+    background-color: white;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ADADAD;
+    font-size: 18px;
+    padding: 0 10px;
+    margin-top: 15px;
+}
+
+.form-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin: 20px 0 40px 0;
+}
+
+.form-container label{
+    color: #444;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.top-side-form {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.color-options{
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 0px;
+    column-gap: 6px;
+}
+
+  .round-checkbox-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+  }
+  
+  .round-checkbox-input {
+    display: none; /* Hide the default checkbox */
+  }
+  
+  .custom-checkbox {
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 50%; /* Make it round */
+    margin-right: 10px;
+    position: relative;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .round-checkbox-input:checked + .custom-checkbox {
+    background-color: #0BC682; /* Change background color when checked */
+    border-color: #0BC682; /* Change border color when checked */
+  }
+  
+  .custom-checkbox::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s;
+  }
+  
+  .round-checkbox-input:checked + .custom-checkbox::after {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+
+
+
+
+
+  .round-checkbox-label span{
+    margin-left: 15px;
+  }
+
+  .selectDaysTitle {
+    color: #444;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: start;
+  }
+  .select-days-block {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .selectDays {
+    background-color: white;
+    border: 1px solid rgb(196, 196, 196);
+    width: 180px;
+    height: 50px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: space-around;
+  }
+  
+
+
+  .addHabitButton {
+    background-color: #0BC682;
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}
+

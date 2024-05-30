@@ -1,0 +1,39 @@
+{
+    "manifest_version": 3,
+    "name": "Habit Atom",
+    "version": "1.0",
+    "description": "Track your habits and tasks with ease.",
+    "permissions": [
+      "storage",
+      "activeTab"
+      ],
+      
+    "host_permissions": [
+        "http://localhost:8080/*"
+    ],
+    "externally_connectable": {
+      "matches": ["http://localhost:3000/*"]
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "logo.png",
+        "48": "logo.png",
+        "128": "logo.png"
+      }
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "icons": {
+      "16": "logo.png",
+      "48": "logo.png",
+      "128": "logo.png"
+    },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self';",
+      "sandbox": "sandbox allow-scripts allow-forms allow-popups allow-modals; script-src 'self' 'unsafe-inline' 'unsafe-eval'; child-src 'self';"
+    }
+  }
+
+

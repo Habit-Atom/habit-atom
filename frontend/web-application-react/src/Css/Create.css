@@ -1,0 +1,41 @@
+#create {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+#create-buttons-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#habit-text,
+#task-text {
+    position: absolute;
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+#task-text {
+    left: 50%;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.add-button-container{
+    margin-bottom: 20px;
+}

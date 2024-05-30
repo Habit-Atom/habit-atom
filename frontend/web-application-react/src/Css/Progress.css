@@ -1,0 +1,37 @@
+#progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+#progress-buttons-container {
+    margin-top: 60px;
+}
+
+#weekly-text,
+#monthly-text {
+    position: absolute;
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+}
+
+#monthly-text {
+    left: 50%;
+}
+
+#charts-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

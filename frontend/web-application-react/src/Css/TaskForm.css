@@ -1,0 +1,194 @@
+.color-options{
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 0px;
+    column-gap: 6px;
+}
+
+.color-options input {
+    display: none;
+}
+
+.button {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.button span {
+    display: block;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 100%;
+    background: #eeeeee;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.orange .button span {
+    background: #F39C12;
+}
+
+.amber .button span {
+    background: #F4D03F;
+}
+
+.lime .button span {
+    background: #2ECC71;
+}
+
+.teal .button span {
+    background: #48C9B0;
+}
+
+.blue .button span {
+    background: #3498DB;
+}
+
+.red .button span {
+    background: #E74C3C;
+}
+.light-pink .button span {
+    background: #FFE6E6;
+}
+.pink .button span {
+  background: #FF70AB;
+}
+.light-green .button span {
+  background: #9DDE8B;
+}
+.vomit-green .button span {
+  background: #D2D180;
+}
+.purple .button span {
+  background: #7469B6;
+}
+.brown .button span {
+  background: #A67B5B;
+}
+
+
+.orange input:checked+.button span,
+.amber input:checked+.button span,
+.lime input:checked+.button span,
+.teal input:checked+.button span,
+.blue input:checked+.button span,
+.red input:checked+.button span,
+.light-pink input:checked+.button span,
+.pink input:checked+.button span,
+.light-green input:checked+.button span,
+.vomit-green input:checked+.button span,
+.purple input:checked+.button span,
+.brown input:checked+.button span {
+    border: 2px solid #444;
+}
+
+.orange input:not(:checked)+.button span,
+.amber input:not(:checked)+.button span,
+.lime input:not(:checked)+.button span,
+.teal input:not(:checked)+.button span,
+.blue input:not(:checked)+.button span,
+.red input:not(:checked)+.button span,
+.light-pink input:not(:checked)+.button span,
+.pink input:not(:checked)+.button span,
+.light-green input:not(:checked)+.button span,
+.vomit-green input:not(:checked)+.button span,
+.purple input:not(:checked)+.button span,
+.brown input:not(:checked)+.button span {
+    border: none;
+}
+
+.form-container input[type='text'],.form-container select{
+    background-color: white;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ADADAD;
+    font-size: 18px;
+    padding: 0 10px;
+    margin-top: 15px;
+}
+
+.form-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin: 20px 0 40px 0;
+}
+
+.form-container label{
+    color: #444;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.top-side-form {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.color-options{
+    margin-top: 15px;
+}
+
+
+
+
+
+
+
+.selectDaysTitle {
+    color: #444;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: start;
+  }
+
+
+.rmdp-week-day, .rmdp-day {
+    color: #444; 
+}
+.rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: #09C681 !important;
+}
+.rmdp-day:not(.rmdp-disabled,.rmdp-day-hidden) span:hover,
+.rmdp-day.rmdp-today span {
+    background-color: #7ed8b8 !important;
+}
+.rmdp-arrow {
+    border: solid #0BC682 !important;
+    border-width: 0 2px 2px 0 !important;
+}
+.rmdp-arrow-container:hover {
+    background-color: #0BC682 !important;
+}
+.rmdp-arrow-container:hover .rmdp-arrow{
+    border: solid white !important;
+    border-width: 0 2px 2px 0 !important;
+}
+
+
+
+.addTaskButton {
+    background-color: white;
+    width: 150px;
+    height: 50px;
+    border-radius: 50px;
+    border: 3px solid #0BC682;
+    color: #0BC682;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+}

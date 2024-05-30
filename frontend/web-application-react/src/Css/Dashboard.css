@@ -1,0 +1,83 @@
+#page-title {
+    margin: 30px 0 40px 80px;
+    color: #444444;
+    text-align: start;
+}
+
+#upper-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+#dashboard-calendar-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-left: 60px;
+}
+
+#lower-container {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+    margin-top: 50px;
+}
+
+.outer-container {
+    width: 40%;
+    padding: 0px 70px;
+    margin-bottom: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h2 {
+    color: #444444;
+    font-size: 30px;
+}
+
+.header button {
+    background-color: white;
+    border: 3px solid #09C681;
+    color: #09C681;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.container-flex{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 10px;
+    height: 80px;
+  }
+
+  .delete-button-container{
+    height: 63px;
+    width: 63px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    color: #BBB;
+    transition: all ease 0.35s;
+    font-size: 22px;
+    border: 1px solid #BBB;
+    margin-left: 10px;
+    padding: 5px;
+  }
+
+
+  .delete-button-container:hover{
+    color: white;
+    background-color: #d0443c;
+    border: 1px solid #d0443c;
+  }

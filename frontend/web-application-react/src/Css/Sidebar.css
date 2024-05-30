@@ -1,0 +1,40 @@
+#sidebar{
+    min-height: 100vh;
+    width: 100px;
+    min-width: 100px;
+    background-color: #0BC682;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#nav-bar-buttons-container{
+    margin-top: 30px;
+}
+
+#logo-container{
+    padding: 27px;
+}
+#logo-container img{
+    width: 100%;
+    height: 100%;
+    object-fit:contain;
+    filter: invert(1) contrast(500%);
+    -webkit-filter: invert(1) contrast(500%);
+}
+
+.page-button{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    text-decoration: none !important; 
+}
+
+.page-button p{
+    margin: 5px 0;
+    font-size: 14px;
+}

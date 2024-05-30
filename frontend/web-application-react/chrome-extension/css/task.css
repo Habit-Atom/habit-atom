@@ -1,0 +1,21 @@
+.task{
+    border-radius: 15px;
+    padding: 10px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.task-details-container{
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.task-name{
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 10px;
+}
