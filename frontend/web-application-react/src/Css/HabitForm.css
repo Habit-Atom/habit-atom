@@ -148,7 +148,7 @@
   }
   
   .round-checkbox-input {
-    display: none; /* Hide the default checkbox */
+    display: none;
   }
   
   .custom-checkbox {
@@ -156,15 +156,15 @@
     height: 20px;
     background-color: white;
     border: 2px solid #ccc;
-    border-radius: 50%; /* Make it round */
+    border-radius: 50%;
     margin-right: 10px;
     position: relative;
     transition: background-color 0.3s, border-color 0.3s;
   }
   
   .round-checkbox-input:checked + .custom-checkbox {
-    background-color: #0BC682; /* Change background color when checked */
-    border-color: #0BC682; /* Change border color when checked */
+    background-color: #0BC682;
+    border-color: #0BC682;
   }
   
   .custom-checkbox::after {
@@ -183,10 +183,6 @@
   .round-checkbox-input:checked + .custom-checkbox::after {
     transform: translate(-50%, -50%) scale(1.5);
   }
-
-
-
-
 
   .round-checkbox-label span{
     margin-left: 15px;
@@ -217,8 +213,6 @@
     align-content: space-around;
   }
   
-
-
   .addHabitButton {
     background-color: #0BC682;
     width: 150px;
@@ -231,3 +225,21 @@
     text-align: center;
 }
 
+#icon-select-button{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #929292;
+  color: #929292;
+  background-color: white;
+  font-size: 16px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+#icon-block{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: row;
+}

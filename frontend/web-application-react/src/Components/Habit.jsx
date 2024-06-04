@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../Css/Habit.css';
 import { request } from '../Helpers/axios_helper'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export const Habit = ({id, habit, completed, disabled }) => {
@@ -44,7 +45,7 @@ export const Habit = ({id, habit, completed, disabled }) => {
   return (
     <div className='habit-container' style={{backgroundColor: rgbaColor}}>
       <div className='habit-details'>
-        <img src={habit.icon} alt="Icon" />
+        <FontAwesomeIcon icon={habit.icon} className="habit-icon" style={{color: habit.color}}/>
         <div className='habit-name-container'> 
           <p className='habit-name'>{habit.name}</p>
           <p className='habit-duration'>{habit.duration}</p>
