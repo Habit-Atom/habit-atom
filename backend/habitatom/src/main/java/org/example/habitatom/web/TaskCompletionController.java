@@ -58,6 +58,6 @@ public class TaskCompletionController {
     public void addTask(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody AddTaskRequest addTaskRequest){
         String token = authorizationHeader.replace("Bearer ", "");
         String userEmail = jwtService.extractUserName(token);
-        taskService.addTask(addTaskRequest.getName(), addTaskRequest.getDuration(), addTaskRequest.getColor(), addTaskRequest.getActiveDates(), userEmail);
+        taskService.addTask(addTaskRequest.getName(), addTaskRequest.getDuration(), addTaskRequest.getColor(), addTaskRequest.getIcon(),addTaskRequest.getActiveDates(), userEmail);
     }
 }

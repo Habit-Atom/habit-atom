@@ -39,10 +39,11 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void addTask(String name, String duration, String color, List<String> dates, String userEmail) {
+    public void addTask(String name, String duration, String color, String icon,List<String> dates, String userEmail) {
         AppUser user = userRepository.findByEmail(userEmail).get();
         Task task = new Task();
         task.setColor(color);
+        task.setIcon(icon);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         List<LocalDate> datesPom = dates.stream()

@@ -58,6 +58,6 @@ public class HabitCompletionController {
     public void addHabit(@RequestHeader(value = "Authorization") String authorizationHeader, @RequestBody AddHabitRequest addHabitRequest){
         String token = authorizationHeader.replace("Bearer ", "");
         String userEmail = jwtService.extractUserName(token);
-        habitService.addHabit(addHabitRequest.getName(), addHabitRequest.getDuration(), addHabitRequest.getColor(), addHabitRequest.getSelectedDaysOfWeek(), userEmail);
+        habitService.addHabit(addHabitRequest.getName(), addHabitRequest.getDuration(), addHabitRequest.getColor(), addHabitRequest.getIcon(),addHabitRequest.getSelectedDaysOfWeek(), userEmail);
     }
 }

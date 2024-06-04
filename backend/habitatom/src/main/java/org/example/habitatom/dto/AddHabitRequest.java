@@ -15,5 +15,6 @@ public class AddHabitRequest {
     String color;
     String duration;
     String name;
+    String icon;
     List<String> selectedDaysOfWeek;
 }
