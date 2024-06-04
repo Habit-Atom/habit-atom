@@ -35,6 +35,12 @@ public class CompletionScheduler {
     @Scheduled(cron = "0 * * * * ?") // Runs at the start of every minute
     public void scheduleHourlyCompletionTask() {
         LocalDate today = LocalDate.now();
+        if (lastUpdateDateRepository.count() == 0) {
+            lastUpdateDateRepository.deleteAll();
+            LastUpdateDate lastUpdateDate = new LastUpdateDate();
+            lastUpdateDate.setDate(today);
+            lastUpdateDateRepository.save(lastUpdateDate);
+        }
         LocalDate prevSavedDate = lastUpdateDateRepository.findAll().get(0).getDate();
         long daysBetween = ChronoUnit.DAYS.between(prevSavedDate, today);
         if (daysBetween >= 1) {

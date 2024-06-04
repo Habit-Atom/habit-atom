@@ -38,10 +38,11 @@ public class HabitServiceImpl implements HabitService {
     }
 
     @Override
-    public void addHabit(String name, String duration, String color, List<String> days, String userEmail) {
+    public void addHabit(String name, String duration, String color, String icon,List<String> days, String userEmail) {
         AppUser user = userRepository.findByEmail(userEmail).get();
         Habit habit = new Habit();
         habit.setColor(color);
+        habit.setIcon(icon);
         habit.setDays(days.stream()
                 .map(day -> {
                     DaysOfWeek daysOfWeek = new DaysOfWeek();

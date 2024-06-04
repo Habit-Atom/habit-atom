@@ -14,5 +14,6 @@ public class AddTaskRequest {
     String color;
     String duration;
     String name;
+    String icon;
     List<String> activeDates;
 }
