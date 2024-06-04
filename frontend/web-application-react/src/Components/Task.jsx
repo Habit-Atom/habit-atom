@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../Css/Task.css"
 import { request } from '../Helpers/axios_helper'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const Task = ({id, task, completed, disabled}) => {
   const name = task.name.toLowerCase().replace(/\s+/g, '_');
@@ -34,7 +35,7 @@ export const Task = ({id, task, completed, disabled}) => {
   return (
     <div className='task-container' style={{border: `3px solid ${task.color}`}}>
       <div className='task-details'>
-        <img src={task.icon} alt="Icon" />
+      <FontAwesomeIcon icon={task.icon} className="task-icon" style={{color: task.color}}/>
         <div className='task-name-container'> 
           <p className='task-name'>{task.name}</p>
           <p className='task-duration'>{task.duration}</p>

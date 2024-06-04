@@ -161,11 +161,13 @@ function hexToRGBA(hex, alpha) {
 function createHtml(data, type) {
   if (type === "habit") {
     const name = data.habit.name.toLowerCase().replace(/\s+/g, '_');
+    const iconClass = `fas fa-${data.habit.icon}`;
+    const iconColor = data.habit.color; // Extract the color for the habit icon
     return `
       <div class="habit">
         <div class="habit-color-container" style="background-color: ${hexToRGBA(data.habit.color, 0.7)}">
           <div class="habit-details-container">
-            <img src="" />
+            <i class="${iconClass}" style="color: ${iconColor}; font-size: 20px; width: 30px; text-align: center"></i>
             <div class="habit-name" style="color: #444">${data.habit.name}</div>
           </div>
           <div class="round">
@@ -177,10 +179,12 @@ function createHtml(data, type) {
     `;
   } else if (type === "task") {
     const name = data.task.name.toLowerCase().replace(/\s+/g, '_');
+    const iconClass = `fas fa-${data.task.icon}`;
+    const iconColor = data.task.color;
     return `
       <div class="task" style="border: 3px solid ${data.task.color}">
         <div class="task-details-container">
-          <img src="" />
+          <i class="${iconClass}" style="color: ${iconColor}; font-size: 20px; width: 30px; text-align: center"></i>
           <div class="task-name" style="color: ${data.task.color}">${data.task.name}</div>
         </div>
         <div class="round">
@@ -194,6 +198,7 @@ function createHtml(data, type) {
     return '';
   }
 }
+
 
 function handleCheckboxClick(id, type) {
   const endpoint = `http://localhost:8080/api/${type}s/updateStatus`;

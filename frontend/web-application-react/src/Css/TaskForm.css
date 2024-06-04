@@ -192,3 +192,22 @@
     font-size: 18px;
     text-align: center;
 }
+
+#icon-select-button{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #929292;
+    color: #929292;
+    background-color: white;
+    font-size: 16px;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  
+  #icon-block{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: row;
+  }

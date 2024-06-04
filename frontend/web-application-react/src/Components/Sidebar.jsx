@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from "react-router-dom"
 import '../Css/Sidebar.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTableColumns, faChartSimple,faCalendarCheck, faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faTableColumns, faChartSimple,faCalendarCheck, faPlus} from '@fortawesome/free-solid-svg-icons'
 
 export const Sidebar = () => {
     
