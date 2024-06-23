@@ -43,6 +43,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./backend/habitatom
+          context: habit-atom/backend/habitatom
           push: true
           tags: nikolaalchev/habit-atom:latest
