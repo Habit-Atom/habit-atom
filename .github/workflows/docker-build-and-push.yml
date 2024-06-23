@@ -25,5 +25,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: ./backend/habitatom 
           push: true
           tags: nikolaalchev/habit-atom:latest
