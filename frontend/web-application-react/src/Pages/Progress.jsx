@@ -7,21 +7,44 @@ export const Progress = () => {
   const [toggle, setToggle] = useState(false);
   const [lineData, setLineData] = useState([]);
   const [pieData, setPieData] = useState([]);
-  let xLabels = [];
+  const [xLabels, setXLabels] = useState([]);
 
-  if (toggle) {
-    xLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'];
-  } else {
-    xLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  }
+  const weeklyLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  const monthlyLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'];
+
+  // Effect to update xLabels based on toggle state
+  useEffect(() => {
+    setXLabels(toggle ? monthlyLabels : weeklyLabels);
+  }, [toggle]);
+
+  // Effect to request data once xLabels has been updated
+  useEffect(() => {
+    if (xLabels.length === 0) return;  // Skip if xLabels is not yet set
+
+    const lineChartEndpoint = toggle
+      ? "/api/statistics/lineChart/monthly"
+      : "/api/statistics/lineChart/weekly";
+    const pieChartEndpoint = toggle
+      ? "/api/statistics/pieChart/monthly"
+      : "/api/statistics/pieChart/weekly";
+
+    requestDataForLineChart(lineChartEndpoint);
+    requestDataForPieChart(pieChartEndpoint);
+  }, [xLabels]);
 
   const requestDataForLineChart = (endpoint) => {
     request("GET", endpoint)
       .then((response) => {
-        setLineData(response.data);
+        console.log('Line chart data received:', response.data);
+        if (response.data.length === xLabels.length) {
+          setLineData(response.data);
+        } else {
+          console.error('Data length mismatch:', response.data.length, xLabels.length);
+          setLineData([]); // Clear the data to avoid rendering mismatched chart
+        }
       })
       .catch((error) => {
-        console.log(error);
+        console.log('Error fetching line chart data:', error);
       });
   };
 
@@ -34,30 +57,13 @@ export const Progress = () => {
           value: value.value,
           color: value.color,
         }));
+        console.log('Pie chart data received:', response.data);
         setPieData(pieChartData);
       })
       .catch((error) => {
-        console.log(error);
+        console.log('Error fetching pie chart data:', error);
       });
   };
-
-  useEffect(() => {
-    if (toggle) {
-      xLabels = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'];
-    } else {
-      xLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    }
-    const lineChartEndpoint = toggle
-      ? "/api/statistics/lineChart/monthly"
-      : "/api/statistics/lineChart/weekly";
-    const pieChartEndpoint = toggle
-      ? "/api/statistics/pieChart/monthly"
-      : "/api/statistics/pieChart/weekly";
-
-    requestDataForLineChart(lineChartEndpoint);
-    requestDataForPieChart(pieChartEndpoint);
-  }, [toggle]);
-
 
   return (
     <main id='progress'>
@@ -77,19 +83,21 @@ export const Progress = () => {
         </div>
       </div>
       <div id="charts-container">
-        <LineChart
-          width={600}
-          height={400}
-          series={[{
-            data: lineData,
-            area: true,
-            showMark: false,
-            color: '#0BC682',
-            areaStyle: { fill: 'rgba(11, 198, 130, 0.3)' }
-          }]}
-          xAxis={[{ scaleType: 'point', data: xLabels }]}
-          yAxis={[{ min: 0, max: 100 }]}
-        />
+        {lineData.length === xLabels.length && (
+          <LineChart
+            width={600}
+            height={400}
+            series={[{
+              data: lineData,
+              area: true,
+              showMark: false,
+              color: '#0BC682',
+              areaStyle: { fill: 'rgba(11, 198, 130, 0.3)' }
+            }]}
+            xAxis={[{ scaleType: 'point', data: xLabels }]}
+            yAxis={[{ min: 0, max: 100 }]}
+          />
+        )}
         <PieChart
           width={600}
           height={350}

@@ -1,0 +1,36 @@
+version: '3'
+services:
+  backend:
+    image: myapp-backend
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/habit_atom
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1706
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      TOKEN_SECRET_KEY: 76dbe1ee3532d0e5295c96ec8b90374e81c48ee2cea2f40a9b48cce4fce0ae64
+      TOKEN_EXPIRATION_MS: 3600000
+
+  database:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: habit_atom
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1706
+
+
+  frontend:
+    image: myapp-frontend
+    build:
+      context: ../../frontend/web-application-react  # Path to your React frontend directory
+    ports:
+      - "3000:80"  # Map port 80 from nginx inside the container to port 3000 on the host
+    depends_on:
+      - backend
