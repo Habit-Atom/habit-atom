@@ -30,21 +30,17 @@ export const Progress = () => {
 
     requestDataForLineChart(lineChartEndpoint);
     requestDataForPieChart(pieChartEndpoint);
-  }, [xLabels]);
+  }, [xLabels, toggle]);
 
   const requestDataForLineChart = (endpoint) => {
     request("GET", endpoint)
       .then((response) => {
         console.log('Line chart data received:', response.data);
-        if (response.data.length === xLabels.length) {
-          setLineData(response.data);
-        } else {
-          console.error('Data length mismatch:', response.data.length, xLabels.length);
-          setLineData([]); // Clear the data to avoid rendering mismatched chart
-        }
+        setLineData(response.data); // Update lineData directly
       })
       .catch((error) => {
         console.log('Error fetching line chart data:', error);
+        setLineData([]); // Handle error state
       });
   };
 
@@ -83,7 +79,7 @@ export const Progress = () => {
         </div>
       </div>
       <div id="charts-container">
-        {lineData.length === xLabels.length && (
+        {lineData.length > 0 && (
           <LineChart
             width={600}
             height={400}
