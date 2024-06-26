@@ -29,8 +29,8 @@ services:
   frontend:
     image: myapp-frontend
     build:
-      context: ../../frontend/web-application-react  # Path to your React frontend directory
+      context: ../../frontend/web-application-react
     ports:
-      - "3000:80"  # Map port 80 from nginx inside the container to port 3000 on the host
+      - "3000:80"
     depends_on:
       - backend
