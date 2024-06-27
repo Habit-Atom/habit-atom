@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: habit-atom-ns
+data:
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/habit_atom
+  SPRING_JPA_HIBERNATE_DDL_AUTO: update
+  TOKEN_EXPIRATION_MS: "3600000"
